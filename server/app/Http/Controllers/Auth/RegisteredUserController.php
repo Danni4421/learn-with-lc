@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Exceptions\ServerError;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Http\JsonResponse;
@@ -19,10 +20,7 @@ class RegisteredUserController extends Controller
         $user = $request->register();
 
         if (!$user) {
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'Registrasi user gagal.'
-            ], 500);
+            throw new ServerError('Terjadi kesalahan pada server.');
         }
 
         return response()->json([

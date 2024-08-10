@@ -7,6 +7,7 @@ use App\Http\Controllers\LBBController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\TestimonyController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['api'])->group(function() {
@@ -17,6 +18,8 @@ Route::middleware(['api'])->group(function() {
     Route::get('/programs/{id}', [ProgramController::class, 'show'])->name('program.show');
     Route::get('/teachers', [TeacherController::class, 'all'])->name('teacher.all');
     Route::get('/teachers/{id}', [TeacherController::class, 'show'])->name('teacher.show');
+    Route::get('/testimonials', [TestimonyController::class, 'all'])->name('teacher.all');
+    Route::get('/testimonials/{id}', [TestimonyController::class, 'show'])->name('teacher.show');
     Route::get('/faqs', [FAQController::class, 'all'])->name('faq.all');
     Route::get('/faqs/{id}', [FAQController::class, 'show'])->name('faq.show');
 
@@ -41,6 +44,12 @@ Route::middleware(['api'])->group(function() {
         Route::prefix('teachers')->group(function() {
             Route::post('/', [TeacherController::class, 'store'])->name('teacher.store');
             Route::put('/{id}', [TeacherController::class, 'update'])->name('teacher.update');
+        });
+
+        Route::prefix('testimonials')->group(function() {
+            Route::post('/', [TestimonyController::class, 'store'])->name('testimony.store');
+            Route::put('/{id}', [TestimonyController::class, 'update'])->name('testimony.update');
+            Route::delete('/{id}', [TestimonyController::class, 'destroy'])->name('testimony.delete');
         });
 
         Route::prefix('faqs')->group(function() {

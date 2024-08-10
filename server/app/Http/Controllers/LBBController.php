@@ -22,6 +22,22 @@ class LBBController extends Controller
     {
         $LBB = LBB::first();
 
+        $activities = (function() use ($LBB){
+            $res = [];
+
+            foreach (json_decode($LBB->activities) as $key => $activity) {
+                $res[] = [
+                    "key" => $key,
+                    "data" => [
+                        "id" => $activity->id,
+                        "url" => asset($activity->url)
+                    ]
+                ];
+            }
+
+            return $res;
+        })();
+
         return response()->json([
             'status' => 'success',
             'message' => 'Berhasil mendapatkan hero LBB.',
@@ -30,7 +46,7 @@ class LBBController extends Controller
                     'about' => $LBB->about,
                     'description' => $LBB->description,
                     'image' => asset($LBB->image),
-                    'activities' => json_decode($LBB->activities)
+                    'activities' => $activities,
                 ]
             ],
         ]);

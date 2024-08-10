@@ -34,7 +34,7 @@ class TeacherController extends Controller
             'data' => [
                 'teacher' => $teacher
             ]
-        ]);
+        ], 201);
     }
 
     /**
@@ -67,10 +67,7 @@ class TeacherController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $teacher = Teacher::find($id)->map(function (Teacher $teacher) {
-            $teacher->image = asset($teacher->image);
-            return $teacher;
-        });
+        $teacher = Teacher::find($id);
 
         if (!$teacher) {
             throw new NotFoundError('Gagal mendapatkan guru, Guru tidak ditmeukan.');
@@ -80,7 +77,10 @@ class TeacherController extends Controller
             'status' => 'success',
             'message' => 'Berhasil mendapatkan guru.',
             'data' => [
-                'teacher' => $teacher
+                'teacher' => [
+                    ...$teacher->toArray(),
+                    'image' => asset($teacher->image)
+                ]
             ]
         ]);
     }

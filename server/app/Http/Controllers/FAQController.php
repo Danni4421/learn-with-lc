@@ -36,7 +36,7 @@ class FAQController extends Controller
             'data' => [
                 'faq' => $FAQ
             ]
-        ]);
+        ], 201);
     }
 
     /**

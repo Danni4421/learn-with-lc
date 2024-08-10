@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('testimoner_name');
             $table->string('last_graduate_at');
             $table->string('now_studied_at');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

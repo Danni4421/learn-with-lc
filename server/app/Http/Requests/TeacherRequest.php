@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Storage;
 
 class TeacherRequest extends FormRequest
 {
-    protected $uploaded_image_file_path;
+    /**
+     * @var string | null
+     */
+    protected $uploaded_image_file_path = null;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -100,21 +103,21 @@ class TeacherRequest extends FormRequest
             'gender' => $this->gender,
             'role' => $this->role,
             'last_graduate_at' => $this->last_graduate_at,
-            'image' => $this->uploaded_image_file_path
+            'image' => !is_null($this->uploaded_image_file_path) 
+                ? 'storage/' . $this->uploaded_image_file_path 
+                : null
         ];
     }
 
     /**
      * Update teacher image 
      * 
-     * @param string $previousPath
-     * @return string
+     * @param string | null $previousPath
+     * @return string | null
      */
-    public function updateTeacherImage(string $previousPath): string
+    public function updateTeacherImage($previousPath): string | null
     {
-        if (is_null($this->image)) {
-            return $previousPath;
-        }
+        if (is_null($this->image)) return $previousPath;
 
         $image_name = last(explode('/', $this->image));
 
@@ -126,6 +129,6 @@ class TeacherRequest extends FormRequest
                 file: $this->image
             );
 
-        return $uploaded_new_image_file_path;
+        return 'storage/' . $uploaded_new_image_file_path;
     }
 }

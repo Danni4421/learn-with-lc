@@ -94,7 +94,7 @@ class PostProgramRequest extends FormRequest
         return [
             'name' => $this->name,
             'description' => $this->description,
-            'image' => $this->uploaded_image_file_path
+            'image' => 'storage/' . $this->uploaded_image_file_path
         ];
     }
 }
