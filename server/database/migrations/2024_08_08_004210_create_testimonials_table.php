@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('testimonials', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('testimony');
+            $table->text('testimony');
             $table->string('testimoner_name');
             $table->string('last_graduate_at');
             $table->string('now_studied_at');
