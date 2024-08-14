@@ -68,6 +68,11 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function image()
+    {
+        return asset($this->image);
+    }
+
     /**
      * Summary of level
      * 

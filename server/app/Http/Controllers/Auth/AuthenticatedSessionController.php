@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -28,13 +29,27 @@ class AuthenticatedSessionController extends Controller
      */
     public function me(): JsonResponse
     {
+        $user = Auth::guard('api')->user();
+
+        if ($user instanceof User) {
+            $user = $user->with('level');
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Berhasil mendapatkan informasi diri.',
+                'data' => [
+                    'user' => [
+                        ...$user->toArray(),
+                        'image' => asset($user->image)
+                    ],
+                ]
+            ]);
+        }
+
         return response()->json([
-            'status' => 'success',
-            'message' => 'Berhasil mendapatkan informasi diri.',
-            'data' => [
-                'user' => Auth::guard('api')->user(),
-            ]
-        ]);
+            'status' => 'fail',
+            'message' => 'Gagal mendapatkan user'
+        ], 403);
     }
 
     /**

@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             'level_id' => $level->id,
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'image' => '/assets/images/hero.png'
         ]);
 
         LBB::updateOrCreate([
