@@ -44,6 +44,7 @@ Route::middleware(['api'])->group(function() {
         Route::prefix('teachers')->group(function() {
             Route::post('/', [TeacherController::class, 'store'])->name('teacher.store');
             Route::put('/{id}', [TeacherController::class, 'update'])->name('teacher.update');
+            Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('teacher.delete');
         });
 
         Route::prefix('testimonials')->group(function() {

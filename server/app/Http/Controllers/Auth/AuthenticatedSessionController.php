@@ -29,27 +29,18 @@ class AuthenticatedSessionController extends Controller
      */
     public function me(): JsonResponse
     {
-        $user = Auth::guard('api')->user();
-
-        if ($user instanceof User) {
-            $user = $user->with('level');
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Berhasil mendapatkan informasi diri.',
-                'data' => [
-                    'user' => [
-                        ...$user->toArray(),
-                        'image' => asset($user->image)
-                    ],
-                ]
-            ]);
-        }
+        $user = User::find(Auth::guard('api')->user()->id);
 
         return response()->json([
-            'status' => 'fail',
-            'message' => 'Gagal mendapatkan user'
-        ], 403);
+            'status' => 'success',
+            'message' => 'Berhasil mendapatkan informasi diri.',
+            'data' => [
+                'user' => [
+                    ...$user->toArray(),
+                    'image' => asset($user->image)
+                ],
+            ],
+        ]);
     }
 
     /**
