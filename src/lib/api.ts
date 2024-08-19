@@ -6,9 +6,9 @@ const instanceApi = axios.create({
 });
 
 instanceApi.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    const token = cookies().get("token");
-    config.headers.Authorization = `Bearer ${token}`;
+  async (config: InternalAxiosRequestConfig) => {
+    const token = cookies().get("TOKEN");
+    config.headers.Authorization = `Bearer ${token?.value}`;
 
     return config;
   },

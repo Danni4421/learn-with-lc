@@ -1,8 +1,12 @@
 export type User = {
   id: string;
-  username: string;
+  name: string;
   email: string;
   email_verified_at: string;
+  level_id: string;
+  image: string;
+  created_at: Date;
+  updated_at: Date;
 };
 
 export type ActivityItem = {
@@ -43,6 +47,17 @@ export type Program = {
   image: string;
   created_at: Date;
   updated_at: Date;
+};
+
+export type Teacher = {
+  id: string;
+  name: string;
+  gender: string | "lk" | "pr";
+  role: string;
+  last_graduate_at: string;
+  image: string;
+  created_at: string;
+  updated_at: string;
 };
 
 export type Facility = {

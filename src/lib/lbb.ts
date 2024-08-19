@@ -1,11 +1,13 @@
+"use server";
+
 import instanceApi from "@/lib/api";
 
 export const fecthLBB = async () => {
-  return instanceApi
-    .get("/lbb")
-    .then((response) => response.data.data)
-    .then((data) => data.lbb)
-    .catch((error) => {
-      return Promise.reject(error);
-    });
+  try {
+    const response = await instanceApi.get("/lbb");
+
+    return response.data.data.lbb;
+  } catch (error) {
+    console.log("LBB Content Not Found", error);
+  }
 };

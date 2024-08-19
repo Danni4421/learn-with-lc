@@ -1,3 +1,5 @@
+"use server";
+
 import instanceApi from "@/lib/api";
 
 export const fetchAllProgram = async () => {
