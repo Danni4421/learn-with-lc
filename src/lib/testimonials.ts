@@ -1,9 +1,13 @@
 "use server";
 
 import instanceApi from "@/lib/api";
-import { EditTestimonySchema, StoreTestimonySchema } from "@/schemas/testimony";
-import { z } from "zod";
 
+/**
+ * Function that will be used for storing a new testimony
+ *
+ * @param {FormData} data
+ * @returns {string | void}
+ */
 export const storeTestimony = async (data: FormData) => {
   try {
     const response = await instanceApi.post("/testimonials", data);
@@ -16,6 +20,11 @@ export const storeTestimony = async (data: FormData) => {
   }
 };
 
+/**
+ * Function that will be used for retrieving all testimony
+ *
+ * @returns {Testimony[]}
+ */
 export const fetchAllTestimonial = async () => {
   try {
     const response = await instanceApi.get("/testimonials");
@@ -28,6 +37,12 @@ export const fetchAllTestimonial = async () => {
   }
 };
 
+/**
+ * Function that will be used for retrieve testimony
+ *
+ * @param {string} id
+ * @returns {Testimony | void}
+ */
 export const fetchTestimonyById = async (id: string) => {
   try {
     const response = await instanceApi.get(`/testimonials/${id}`);
@@ -40,6 +55,13 @@ export const fetchTestimonyById = async (id: string) => {
   }
 };
 
+/**
+ * Function that will be used for update based on spesific testimony
+ *
+ * @param {FormData} data
+ * @param {string} id
+ * @returns {string | void}
+ */
 export const putTestimonyById = async (data: FormData, id: string) => {
   data.append("_method", "PUT");
 
@@ -54,6 +76,12 @@ export const putTestimonyById = async (data: FormData, id: string) => {
   }
 };
 
+/**
+ * Function that will be used for delete testimony based on spesific id
+ *
+ * @param {string} id
+ * @returns {string | void}
+ */
 export const deleteTestimonyById = async (id: string) => {
   try {
     const response = await instanceApi.delete(`/testimonials/${id}`);

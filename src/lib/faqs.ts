@@ -2,8 +2,14 @@
 
 import { z } from "zod";
 import instanceApi from "@/lib/api";
-import { PutFAQSchema, StoreFAQSchema } from "@/schemas/faqs";
+import { PutFAQSchema, StoreFAQSchema } from "@/schemas/faq";
 
+/**
+ * Function that will be use for storing a new question
+ *
+ * @param {Object} data
+ * @returns {string | void}
+ */
 export const storeQuestion = async (data: z.infer<typeof StoreFAQSchema>) => {
   try {
     const response = await instanceApi.post("/faqs", data);
@@ -14,6 +20,11 @@ export const storeQuestion = async (data: z.infer<typeof StoreFAQSchema>) => {
   }
 };
 
+/**
+ * Function that will be use for retrieving questions
+ *
+ * @returns {Question[] | void}
+ */
 export const fetchAllQuestion = async () => {
   try {
     const response = await instanceApi.get("/faqs");
@@ -24,6 +35,12 @@ export const fetchAllQuestion = async () => {
   }
 };
 
+/**
+ * Function that will be use for retrieving spesific question based on id
+ *
+ * @param {string} id
+ * @returns {Question | void}
+ */
 export const fetchQuestionById = async (id: string) => {
   try {
     const response = await instanceApi.get(`/faqs/${id}`);
@@ -34,9 +51,16 @@ export const fetchQuestionById = async (id: string) => {
   }
 };
 
+/**
+ * Function that will be use for update spesific question based on selected id
+ *
+ * @param {Object} data
+ * @param {string} id
+ * @returns {string | void}
+ */
 export const putQuestionById = async (
   data: z.infer<typeof PutFAQSchema>,
-  id: string,
+  id: string
 ) => {
   try {
     const response = await instanceApi.post(`/faqs/${id}`, {
@@ -50,6 +74,12 @@ export const putQuestionById = async (
   }
 };
 
+/**
+ * Function that will be use for delete spesific question based on selected id
+ *
+ * @param {string} id
+ * @returns {string | void}
+ */
 export const deleteQuestionById = async (id: string) => {
   try {
     const response = await instanceApi.delete(`/faqs/${id}`);
