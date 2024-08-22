@@ -44,6 +44,7 @@ Route::middleware(['api'])->group(function() {
         Route::prefix('teachers')->group(function() {
             Route::post('/', [TeacherController::class, 'store'])->name('teacher.store');
             Route::put('/{id}', [TeacherController::class, 'update'])->name('teacher.update');
+            Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('teacher.delete');
         });
 
         Route::prefix('testimonials')->group(function() {
@@ -64,7 +65,7 @@ Route::middleware(['api'])->group(function() {
         Route::post('/login', [AuthenticatedSessionController::class, 'login'])->name('login');
         Route::post('/logout', [AuthenticatedSessionController::class, 'logout'])->middleware('auth:api')->name('logout');
         Route::put('/refresh', [AuthenticatedSessionController::class, 'refresh'])->middleware('auth:api')->name('refresh');
-        Route::post('/me', [AuthenticatedSessionController::class, 'me'])->middleware('auth:api')->name('me');
+        Route::get('/me', [AuthenticatedSessionController::class, 'me'])->middleware('auth:api')->name('me');
     });
 });
 

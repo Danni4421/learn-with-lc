@@ -7,6 +7,7 @@ use App\Exceptions\ServerError;
 use App\Http\Requests\Program\PostProgramRequest;
 use App\Http\Requests\Program\PutProgramRequest;
 use App\Models\Program;
+use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -47,7 +48,7 @@ class ProgramController extends Controller
     public function all(): JsonResponse
     {
         $programs = Program::orderByDesc('created_at')->get()->map(function(Program $program) {
-            $program->image = asset($program->image);
+            $program->image = !is_null($program->image) ? asset($program->image) : null;
             return $program;
         });
 
@@ -69,10 +70,7 @@ class ProgramController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $program = Program::find($id)->map(function (Program $program) {
-            $program->image = asset($program->image);
-            return $program;
-        });
+        $program = Program::find($id);
 
         if (!$program) {
             throw new NotFoundError('Program tidak ditemukan.');
@@ -87,7 +85,7 @@ class ProgramController extends Controller
                     'name' => $program->name,
                     'description' => $program->description,
                     'order_number' => $program->order_number,
-                    'image' => asset('storage/' . $program->image)
+                    'image' => asset($program->image)
                 ],
             ],
         ]);
@@ -109,13 +107,18 @@ class ProgramController extends Controller
             throw new NotFoundError("Program tidak ditemukan.");
         }
 
-        $updated_image_file_path = $request->updateProgramImage($program->image);
-
         $program->update([
             'name' => $request->name,
             'description' => $request->description,
-            'image' => $updated_image_file_path
         ]);
+
+        if (!is_null($request->image)) {
+            $updated_image_file_path = $request->updateProgramImage($program->image);
+
+            $program->update([
+                'image' => 'storage/' . $updated_image_file_path,
+            ]);
+        }
 
         return response()->json([
             'status' => 'success',

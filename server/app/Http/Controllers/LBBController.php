@@ -15,14 +15,14 @@ class LBBController extends Controller
 {
     /**
      * Get LBB description
-     * 
+     *
      * @return JsonResponse
      */
     public function show(): JsonResponse
     {
         $LBB = LBB::first();
 
-        $activities = (function() use ($LBB){
+        $activities = (function () use ($LBB) {
             $res = [];
 
             foreach (json_decode($LBB->activities) as $key => $activity) {
@@ -30,8 +30,8 @@ class LBBController extends Controller
                     "key" => $key,
                     "data" => [
                         "id" => $activity->id,
-                        "url" => asset($activity->url)
-                    ]
+                        "url" => asset($activity->url),
+                    ],
                 ];
             }
 
@@ -39,39 +39,44 @@ class LBBController extends Controller
         })();
 
         return response()->json([
-            'status' => 'success',
-            'message' => 'Berhasil mendapatkan hero LBB.',
-            'data' => [
-                'lbb' => [
-                    'about' => $LBB->about,
-                    'description' => $LBB->description,
-                    'image' => asset($LBB->image),
-                    'activities' => $activities,
-                ]
+            "status" => "success",
+            "message" => "Berhasil mendapatkan hero LBB.",
+            "data" => [
+                "lbb" => [
+                    "about" => $LBB->about,
+                    "description" => $LBB->description,
+                    "image" => asset($LBB->image),
+                    "activities" => $activities,
+                ],
             ],
         ]);
     }
 
     /**
      * Store a new activities
-     * 
+     *
      * @param Request $request
      * @throws InvariantError
      * @return JsonResponse
      */
     public function store_activities(Request $request): JsonResponse
     {
-        $validator = Validator::make($request->all(), [
-            'images' => ['required', 'array', 'min:1'],
-            'images.*' => ['image', 'mimetypes:image/*', 'max:1024']
-        ], [
-            'images.required' => 'Minimal terdapat satu gambar.',
-            'images.array' => 'Tipe request harus sebuah array.',
-            'images.min' => 'Minimal harus terdapat 1 gambar.',
-            'images.*.image' => 'Activity harus berupa gambar.', 
-            'images.*.mimetypes' => 'Gambar activity harus berupa .jpg, .jpeg, .png, .svg.',
-            'images.*.max' => 'Maksimal ukuran gambar adalah 1 MB.'
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                "images" => ["required", "array", "min:1"],
+                "images.*" => ["image", "mimetypes:image/*", "max:1024"],
+            ],
+            [
+                "images.required" => "Minimal terdapat satu gambar.",
+                "images.array" => "Tipe request harus sebuah array.",
+                "images.min" => "Minimal harus terdapat 1 gambar.",
+                "images.*.image" => "Activity harus berupa gambar.",
+                "images.*.mimetypes" =>
+                    "Gambar activity harus berupa .jpg, .jpeg, .png, .svg.",
+                "images.*.max" => "Maksimal ukuran gambar adalah 1 MB.",
+            ]
+        );
 
         if ($validator->fails()) {
             throw new InvariantError(errors: $validator->errors()->toArray());
@@ -81,23 +86,28 @@ class LBBController extends Controller
         $activities = json_decode($LBB->activities, true);
 
         foreach ($request->images as $image) {
-            $uploaded_image_file_path = Storage::drive('public')
-                ->putFile('activities', $image);
+            $uploaded_image_file_path = Storage::drive("public")->putFile(
+                "activities",
+                $image
+            );
 
             $activities[Str::random(16)] = [
-                'id' => Str::uuid(),
-                'url' => asset('storage/' . $uploaded_image_file_path)
+                "id" => Str::uuid()->toString(),
+                "url" => asset("storage/" . $uploaded_image_file_path),
             ];
         }
 
         $LBB->update([
-            'activities' => json_encode($activities)
+            "activities" => json_encode($activities),
         ]);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Berhasil menambahkan aktifitas.',
-        ], 201);
+        return response()->json(
+            [
+                "status" => "success",
+                "message" => "Berhasil menambahkan aktifitas.",
+            ],
+            201
+        );
     }
 
     /**
@@ -112,20 +122,20 @@ class LBBController extends Controller
         $uploaded_new_image_path = $request->updateLBBImage($LBB->image);
 
         $LBB->update([
-            'about' => $request->about,
-            'description' => $request->description,
-            'image' => $uploaded_new_image_path
+            "about" => $request->about,
+            "description" => $request->description,
+            "image" => $uploaded_new_image_path,
         ]);
 
         return response()->json([
-            'status' => 'success',
-            'message' => 'Berhasil memperbarui hero LBB.',
+            "status" => "success",
+            "message" => "Berhasil memperbarui hero LBB.",
         ]);
     }
 
     /**
      * Delete selected activity
-     * 
+     *
      * @param string $id
      * @return JsonResponse
      */
@@ -137,21 +147,22 @@ class LBBController extends Controller
 
         foreach ($activities as $key => $activity) {
             if ($key == $id) {
-                $image_name = last(explode('/', $activity["url"]));
-                Storage::drive('public')->delete('activities/' . $image_name);
+                $image_name = last(explode("/", $activity["url"]));
+                Storage::drive("public")->delete("activities/" . $image_name);
 
                 unset($activities[$key]);
+
+                break;
             }
         }
 
         $LBB->update([
-            'activities' => json_encode($activities)
+            "activities" => json_encode($activities),
         ]);
 
         return response()->json([
-            'status' => 'success',
-            'message' => 'Berhasil menghapus aktifitas.',
+            "status" => "success",
+            "message" => "Berhasil menghapus aktifitas.",
         ]);
     }
-
 }

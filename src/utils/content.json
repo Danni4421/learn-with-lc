@@ -1,0 +1,117 @@
+{
+  "sections": [
+    "about_us",
+    "strengths",
+    "programs",
+    "facilities",
+    "activities",
+    "teachers",
+    "testimonials",
+    "faqs"
+  ],
+  "aboutUs": [
+    {
+      "image": "images/about/1.svg",
+      "texts": [
+        "Lembaga Bimbingan Belajar (LBB) Lentera Cendekia hadir untuk mengatasi permasalahan belajar siswa dan wali siswa. Kami menciptakan lingkungan belajar yang menyenangkan melalui metode <b>\"Fun and Meaningful Learning\"</b> yang memastikan siswa memahami konsep dasar, bukan hanya menghafal."
+      ]
+    },
+    {
+      "image": "images/about/2.svg",
+      "texts": [
+        "Dengan mentor yang kompeten dan ramah, serta kegiatan menarik seperti praktikum dan outing class, Lentera Cendekia menjadikan belajar lebih menarik dan tidak membosankan. Kami juga menyediakan pendekatan yang disesuaikan dengan kebutuhan setiap siswa.",
+        "Di Lentera Cendekia, belajar menjadi petualangan yang menyenangkan dan penuh makna. Mari bergabung dan lihat bagaimana kami dapat membuat proses belajar anak Anda lebih efektif dan menyenangkan."
+      ]
+    }
+  ],
+  "facilities": {
+    "wifi": {
+      "title": "Full AC dan Wifi",
+      "description": "Kelas dengan full AC dan Wifi yang menunjang kenyamanan dan proses belajar bagi peserta didik"
+    },
+    "practice": {
+      "title": "Praktikum Kelas online / offline",
+      "description": "Kami memadukan kelas online dan offline. Ada praktikum juga untuk membantu peserta didik memahami materi pembelajaran"
+    },
+    "accompaniment": {
+      "title": "Kelas exclusive pendampingan ujian sekolah",
+      "description": "Tiap kelompok belajar hanya 5 - 6 siswa membuat hasil belajar lebih maksimal serta adanya pendampingan khusus selama ujian baik PTS, PAT, dan USEK"
+    },
+    "follow_up": {
+      "title": "Follow Up",
+      "description": "Bimbingan via WhatsApp dan g-meet untuk tugas sekolah dan PR"
+    }
+  },
+  "strengths": [
+    {
+      "image": "images/strengths/1.svg",
+      "title": "Nikmati Kemudahan Belajar Interaktif dan Menyenangkan",
+      "description": "Dengan dukungan mentor yang ramah dan berpengalaman, serta berbagai aktivitas menarik seperti simulasi, praktikum, dan outing class, siswa akan merasa lebih termotivasi dan antusias dalam belajar"
+    },
+    {
+      "image": "images/strengths/2.svg",
+      "title": "Diskusi Bersama Sesama Teman Belajar",
+      "description": "Diskusi bersama dengan teman di LBB Lentera Cendekia memungkinkan siswa untuk saling berbagi pengetahuan dan solusi, sehingga memperdalam pemahaman mereka terhadap materi pelajaran."
+    },
+    {
+      "image": "images/strengths/3.svg",
+      "title": "Pendekatan Pembelajaran yang Disesuaikan",
+      "description": "Pendekatan belajar di Lentera Cendekia disesuaikan dengan kebutuhan dan gaya belajar setiap siswa, memastikan bimbingan yang optimal dan personal."
+    }
+  ],
+  "footer": {
+    "about": "Lembaga bimbingan belajar yang berdedikasi untuk membantu siswa mencapai impian akademis dan karier mereka. Dengan metode pembelajaran yang inovatif dan tutor yang berpengalaman, kami menyediakan lingkungan belajar yang mendukung dan interaktif",
+    "popularCourses": [
+      {
+        "courseName": "Matematika Dasar",
+        "redirectTo": ""
+      },
+      {
+        "courseName": "Fisika Dasar",
+        "redirectTo": ""
+      },
+      {
+        "courseName": "Bahasa Inggris Dasar",
+        "redirectTo": ""
+      },
+      {
+        "courseName": "Dasar Pemrograman",
+        "redirectTo": ""
+      },
+      {
+        "courseName": "Bahasa Indonesia Dasar",
+        "redirectTo": ""
+      }
+    ],
+    "navigations": [
+      {
+        "navItem": "Pelajaran",
+        "redirectTo": ""
+      },
+      {
+        "navItem": "Forum",
+        "redirectTo": ""
+      },
+      {
+        "navItem": "Kelas",
+        "redirectTo": ""
+      },
+      {
+        "navItem": "Enrollment",
+        "redirectTo": ""
+      },
+      {
+        "navItem": "Reviews",
+        "redirectTo": ""
+      }
+    ],
+    "copyright": "2024 LearnWithLC, All Right Reserved.",
+    "contacts": {
+      "facebook": "https://facebook.com",
+      "whatsapp": "https:wa.me/+6289xxxxxxxxx",
+      "instagram": "https://instagram.com",
+      "email": "learnwithlc.now@gmail.com",
+      "phoneNumber": "+62 874 949 834 34"
+    }
+  }
+}
