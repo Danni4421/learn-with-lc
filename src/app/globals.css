@@ -3,11 +3,77 @@
 @tailwind utilities;
 
 * {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
+}
+
+.tiptap.ProseMirror-focused {
+    border: none !important;
+    outline: none !important;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+}
+
+.table-loader {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: block;
+    margin: 15px auto;
+    position: relative;
+    background: #fff;
+    box-shadow:
+        -24px 0 #fff,
+        24px 0 #fff;
+    box-sizing: border-box;
+    animation: shadowPulse 2s linear infinite;
+}
+
+.swa-popup,
+.swa-container {
+    z-index: 99999 !important;
+}
+
+@keyframes shadowPulse {
+    33% {
+        background: #fff;
+        box-shadow:
+            -24px 0 #ff3d00,
+            24px 0 #fff;
+    }
+    66% {
+        background: #ff3d00;
+        box-shadow:
+            -24px 0 #fff,
+            24px 0 #fff;
+    }
+    100% {
+        background: #fff;
+        box-shadow:
+            -24px 0 #fff,
+            24px 0 #ff3d00;
+    }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    .text-balance {
+        text-wrap: balance;
+    }
+
+    .button-group {
+        @apply flex flex-wrap gap-2;
+    }
+
+    .button-group button {
+        @apply px-4 py-2 text-xs font-thin bg-gray-200 rounded-xl hover:bg-gray-300;
+    }
+
+    .button-group button.is-active {
+        @apply bg-indigo-500 hover:bg-indigo-600 text-white;
+    }
 }

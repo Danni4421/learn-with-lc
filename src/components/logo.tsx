@@ -6,7 +6,7 @@ export default function ApplicationLogo(
   return (
     <svg
       {...props}
-      width="179"
+      width="130"
       height="20"
       viewBox="0 0 179 20"
       fill="none"

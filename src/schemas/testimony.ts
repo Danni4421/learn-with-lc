@@ -35,8 +35,8 @@ export const StoreTestimonySchema = z.object({
   image: z
     .custom<File>()
     .optional()
-    .refine((file) => !file || (!!file && file.size <= 1 * 1024 * 1024), {
-      message: "Maksimal ukuran foto testimoner adalah 1MB.",
+    .refine((file) => !file || (!!file && file.size <= 3 * 1024 * 1024), {
+      message: "Maksimal ukuran foto testimoner adalah 3 MB.",
     })
     .refine((file) => !file || (!!file && file.type?.startsWith("image")), {
       message: "Hanya boleh menambahkan gambar.",
@@ -65,8 +65,8 @@ export const EditTestimonySchema = z.object({
   image: z
     .custom<File>()
     .optional()
-    .refine((file) => !file || (!!file && file.size <= 1 * 1024 * 1024), {
-      message: "Maksimal ukuran foto testimoner adalah 1MB.",
+    .refine((file) => !file || (!!file && file.size <= 3 * 1024 * 1024), {
+      message: "Maksimal ukuran foto testimoner adalah 3 MB.",
     })
     .refine((file) => !file || (!!file && file.type?.startsWith("image")), {
       message: "Hanya boleh menambahkan gambar.",

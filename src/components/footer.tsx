@@ -1,5 +1,9 @@
 "use client";
 
+import clsx from "clsx";
+import { ReactNode } from "react";
+
+/** Components */
 import {
   Box,
   chakra,
@@ -12,11 +16,12 @@ import {
   IconButton,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { ReactNode } from "react";
-import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import ApplicationLogo from "@/components/logo";
+import { FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
 import { BiMailSend } from "react-icons/bi";
-import ApplicationLogo from "./logo";
-import clsx from "clsx";
+
+/** Types */
+import { Contact } from "@/types";
 
 const SocialButton = ({
   children,
@@ -58,11 +63,29 @@ const ListHeader = ({ children }: { children: ReactNode }) => {
   );
 };
 
-type FooterProps = {
-  className?: string;
-};
+interface NavigationItem {
+  navItem: string;
+  redirectTo: string;
+}
 
-export default function Footer({ className = "" }: FooterProps) {
+interface PopularCourse {
+  courseName: string;
+  redirectTo: string;
+}
+
+interface FooterProps {
+  className?: string;
+  contacts: Contact;
+  navigations: NavigationItem[];
+  popularCourses: PopularCourse[];
+}
+
+export default function Footer({
+  className = "",
+  contacts,
+  navigations,
+  popularCourses,
+}: FooterProps) {
   return (
     <Box className={clsx("min-w-full", className)}>
       <Container as={Stack} py={10} className="min-w-[80%]">
@@ -74,62 +97,48 @@ export default function Footer({ className = "" }: FooterProps) {
             <Box>
               <ApplicationLogo />
             </Box>
-            <Text fontSize={"sm"}>
-              © 2022 Chakra Templates. All rights reserved
+            <Text fontSize={12}>
+              © 2024 LBB Lentera Cendekia. All rights reserved
             </Text>
             <Stack direction={"row"} spacing={6}>
-              <SocialButton label={"Twitter"} href={"#"}>
-                <FaTwitter />
+              <SocialButton label={"Whatsapp"} href={contacts.whatsapp}>
+                <FaWhatsapp />
               </SocialButton>
-              <SocialButton label={"YouTube"} href={"#"}>
+              <SocialButton label={"YouTube"} href={contacts.instagram}>
                 <FaYoutube />
               </SocialButton>
-              <SocialButton label={"Instagram"} href={"#"}>
+              <SocialButton label={"Instagram"} href={contacts.instagram}>
                 <FaInstagram />
               </SocialButton>
             </Stack>
           </Stack>
           <Stack align={"flex-start"}>
             <ListHeader>Company</ListHeader>
-            <Box as="a" href={"#"}>
-              About us
-            </Box>
-            <Box as="a" href={"#"}>
-              Blog
-            </Box>
-            <Box as="a" href={"#"}>
-              Contact us
-            </Box>
-            <Box as="a" href={"#"}>
-              Pricing
-            </Box>
-            <Box as="a" href={"#"}>
-              Testimonials
-            </Box>
+            {navigations.map((navigation, index) => (
+              <Box
+                as="a"
+                href={navigation.redirectTo}
+                fontSize={12}
+                key={index}
+              >
+                {navigation.navItem}
+              </Box>
+            ))}
           </Stack>
           <Stack align={"flex-start"}>
-            <ListHeader>Support</ListHeader>
-            <Box as="a" href={"#"}>
-              Help Center
-            </Box>
-            <Box as="a" href={"#"}>
-              Terms of Service
-            </Box>
-            <Box as="a" href={"#"}>
-              Legal
-            </Box>
-            <Box as="a" href={"#"}>
-              Privacy Policy
-            </Box>
-            <Box as="a" href={"#"}>
-              Satus
-            </Box>
+            <ListHeader>Popular Course</ListHeader>
+            {popularCourses.map((course, index) => (
+              <Box as="a" href={course.redirectTo} fontSize={12} key={index}>
+                {course.courseName}
+              </Box>
+            ))}
           </Stack>
           <Stack align={"flex-start"}>
             <ListHeader>Stay up to date</ListHeader>
             <Stack direction={"row"}>
               <Input
                 placeholder={"Your email address"}
+                _placeholder={{ fontSize: 12 }}
                 bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
                 border={0}
                 _focus={{
@@ -137,10 +146,10 @@ export default function Footer({ className = "" }: FooterProps) {
                 }}
               />
               <IconButton
-                bg={useColorModeValue("green.400", "green.800")}
+                bg={useColorModeValue("yellow.400", "yellow.800")}
                 color={useColorModeValue("white", "gray.800")}
                 _hover={{
-                  bg: "green.600",
+                  bg: "yellow.600",
                 }}
                 aria-label="Subscribe"
                 icon={<BiMailSend />}

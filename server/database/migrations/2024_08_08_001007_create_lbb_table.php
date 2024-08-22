@@ -4,18 +4,18 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('lbb', function (Blueprint $table) {
-            $table->string('about');
-            $table->string('description');
-            $table->string('image');
-            $table->json('activities');
+        Schema::create("lbb", function (Blueprint $table) {
+            $table->id();
+            $table->string("about");
+            $table->string("description");
+            $table->string("image");
+            $table->json("activities");
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lbb');
+        Schema::dropIfExists("lbb");
     }
 };

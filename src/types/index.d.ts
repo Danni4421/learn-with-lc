@@ -83,3 +83,11 @@ export type Question = {
   created_at: Date;
   updated_at: Date;
 };
+
+export type Contact = {
+  facebook: string;
+  whatsapp: string;
+  instagram: string;
+  email: string;
+  phoneNumber: string;
+};

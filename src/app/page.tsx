@@ -1,29 +1,40 @@
+import { auth } from "@/auth";
+
+/** Components */
 import Heading from "@/components/heading";
-import Navbar from "@/components/navigations/navbar";
+import Navbar from "@/components/ui/navigations/navbar";
 import Footer from "@/components/footer";
-import HeroSection from "@/components/sections/hero";
-import AboutSection from "@/components/sections/about";
-import StrengthsSection from "@/components/sections/strengths";
-import ProgramsSection from "@/components/sections/programs";
-import FacilitiesSection from "@/components/sections/facilities";
-import ActivitiesSection from "@/components/sections/activities";
-import TestimonialsSection from "@/components/sections/testimonials";
-import FaqsSection from "@/components/sections/faqs";
-import content from "@/utils/content.json";
+import HeroSection from "@/components/ui/sections/hero";
+import AboutSection from "@/components/ui/sections/about";
+import StrengthsSection from "@/components/ui/sections/strengths";
+import ProgramsSection from "@/components/ui/sections/programs";
+import FacilitiesSection from "@/components/ui/sections/facilities";
+import ActivitiesSection from "@/components/ui/sections/activities";
+import TeacherSection from "@/components/ui/sections/teachers";
+import TestimonialsSection from "@/components/ui/sections/testimonials";
+import FaqsSection from "@/components/ui/sections/faqs";
+
+/** Libraries */
 import { fecthLBB } from "@/lib/lbb";
 import { fetchAllProgram } from "@/lib/programs";
 import { fetchAllTestimonial } from "@/lib/testimonials";
-import { fetchAllQuestion } from "@/lib/faq";
+import { fetchAllQuestion } from "@/lib/faqs";
+import { fetchAllTeacher } from "@/lib/teachers";
+
+/** Utilities */
+import content from "@/utils/content.json";
 
 export default async function Home() {
   const lbb = await fecthLBB();
   const programs = await fetchAllProgram();
+  const teachers = await fetchAllTeacher();
   const testimonials = await fetchAllTestimonial();
   const faqs = await fetchAllQuestion();
+  const session = await auth();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between bg-gray-100">
-      <Navbar isLanding />
+      <Navbar isLanding user={session?.user} />
 
       {/* Hero */}
       <HeroSection lbb={lbb} className="mt-24 px-8 overflow-hidden" />
@@ -31,7 +42,7 @@ export default async function Home() {
       {/* About */}
       <AboutSection
         abouts={content.aboutUs}
-        className="px-8 mx-auto scroll-m-24"
+        className="w-[85vw] mx-auto scroll-m-24"
       />
 
       {/* Strengths */}
@@ -39,7 +50,7 @@ export default async function Home() {
         <Heading head="Keunggulan LC" subhead="Kenapa Harus Pilih LC?" />
         <StrengthsSection
           strengths={content.strengths}
-          className="scroll-m-48"
+          className="w-[85vw] scroll-m-48"
         />
       </>
 
@@ -49,7 +60,7 @@ export default async function Home() {
           head="Program Unggulan"
           subhead="Apa Aja Sih Program Unggulan Kami?"
         />
-        <ProgramsSection programs={programs} className="scroll-m-48" />
+        <ProgramsSection programs={programs} className="w-[85vw] scroll-m-48" />
       </>
 
       {/* Facilities */}
@@ -65,6 +76,18 @@ export default async function Home() {
           subhead="Banyak Hal Seru di Lentera Cendekia"
         />
         <ActivitiesSection activities={lbb.activities} />
+      </>
+
+      {/* Teachers */}
+      <>
+        <Heading
+          head="Team Teaching"
+          subhead="Kenalan Sama Team Teaching LC!"
+        />
+        <TeacherSection
+          teachers={teachers}
+          className="w-10/12 my-8 scroll-m-24"
+        />
       </>
 
       {/* Testimonials */}
@@ -83,7 +106,12 @@ export default async function Home() {
       </>
 
       {/* Footer */}
-      <Footer className="mt-24 bg-inherit" />
+      <Footer
+        className="mt-24 bg-inherit"
+        contacts={content.footer.contacts}
+        navigations={content.footer.navigations}
+        popularCourses={content.footer.popularCourses}
+      />
     </main>
   );
 }

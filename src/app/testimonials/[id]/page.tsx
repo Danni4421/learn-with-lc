@@ -1,7 +1,12 @@
-import Navbar from "@/components/navigations/navbar";
-import { fetchTestimonyById } from "@/lib/testimonials";
-import { Testimony } from "@/types";
+/** Components */
+import Navbar from "@/components/ui/navigations/navbar";
 import { Container, Text, Image } from "@chakra-ui/react";
+
+/** Types */
+import { Testimony } from "@/types";
+
+/** Libraries */
+import { fetchTestimonyById } from "@/lib/testimonials";
 
 export default async function Page(context: { params: { id: string } }) {
   const { id } = context.params;
@@ -15,7 +20,7 @@ export default async function Page(context: { params: { id: string } }) {
         <div className="flex w-8/12 mx-auto gap-8">
           <div>
             {testimony.image ? (
-              <Image />
+              <Image src={testimony.image} alt="Testimoner image" />
             ) : (
               <Container
                 fontWeight="bold"

@@ -26,8 +26,8 @@ export const StoreTeacherSchema = z.object({
   image: z
     .custom<File>()
     .optional()
-    .refine((file) => !file || (!!file && file.size <= 1 * 1024 * 1024), {
-      message: "Maksimal ukuran foto guru adalah 1MB.",
+    .refine((file) => !file || (!!file && file.size <= 3 * 1024 * 1024), {
+      message: "Maksimal ukuran foto guru adalah 3 MB.",
     })
     .refine((file) => !file || (!!file && file.type?.startsWith("image")), {
       message: "Hanya boleh menambahkan gambar.",
@@ -61,8 +61,8 @@ export const PutTeacherSchema = z.object({
     }),
   image: z
     .custom<File>()
-    .refine((file) => !file || (!!file && file.size <= 1 * 1024 * 1024), {
-      message: "Maksimal ukuran foto guru adalah 1MB.",
+    .refine((file) => !file || (!!file && file.size <= 3 * 1024 * 1024), {
+      message: "Maksimal ukuran foto guru adalah 3 MB.",
     })
     .refine((file) => !file || (!!file && file.type?.startsWith("image")), {
       message: "Hanya boleh menambahkan gambar.",
