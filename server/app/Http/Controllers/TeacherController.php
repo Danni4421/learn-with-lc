@@ -45,7 +45,7 @@ class TeacherController extends Controller
     public function all(): JsonResponse
     {
         $teachers = Teacher::get()->map(function(Teacher $teacher) {
-            $teacher->image = !is_null($teacher->image) ? asset($teacher->image) : null;
+            $teacher->image = !is_null($teacher->image) ? $this->asset($teacher->image) : null;
             return $teacher;
         });
 
@@ -79,7 +79,7 @@ class TeacherController extends Controller
             'data' => [
                 'teacher' => [
                     ...$teacher->toArray(),
-                    'image' => !is_null($teacher->image) ? asset($teacher->image) : null
+                    'image' => !is_null($teacher->image) ? $this->asset($teacher->image) : null
                 ]
             ]
         ]);

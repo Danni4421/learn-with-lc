@@ -30,7 +30,7 @@ class LBBController extends Controller
                     "key" => $key,
                     "data" => [
                         "id" => $activity->id,
-                        "url" => asset($activity->url),
+                        "url" => $this->asset($activity->url),
                     ],
                 ];
             }
@@ -45,7 +45,7 @@ class LBBController extends Controller
                 "lbb" => [
                     "about" => $LBB->about,
                     "description" => $LBB->description,
-                    "image" => asset($LBB->image),
+                    "image" => $this->asset($LBB->image),
                     "activities" => $activities,
                 ],
             ],
@@ -93,7 +93,7 @@ class LBBController extends Controller
 
             $activities[Str::random(16)] = [
                 "id" => Str::uuid()->toString(),
-                "url" => asset("storage/" . $uploaded_image_file_path),
+                "url" => $this->asset("storage/" . $uploaded_image_file_path),
             ];
         }
 
