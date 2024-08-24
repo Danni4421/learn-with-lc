@@ -13,9 +13,9 @@ export default function Programs({
 }: ProgramsProps) {
   return (
     <section {...props} id="programs" className={className}>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center">
+      <div className="flex justify-center items-center flex-wrap">
         {programs?.map((program) => (
-          <Card maxW="sm" key={program.id}>
+          <Card className="max-w-sm mx-auto" key={program.id}>
             <CardBody>
               <Image src={program.image} alt={program.name} borderRadius="lg" />
               <Stack mt="6" spacing="3">

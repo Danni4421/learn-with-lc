@@ -53,8 +53,15 @@ export default function Page() {
 
     startTransition(async () => {
       try {
-        await login({ email, password });
-        router.push(DEFAULT_LOGIN_REDIRECT);
+        const response = await login({ email, password });
+
+        if (response?.error) {
+          setError(response?.error);
+        }
+
+        if (response?.success) {
+          router.push(DEFAULT_LOGIN_REDIRECT);
+        }
       } catch (error) {
         setError("Gagal login");
       }

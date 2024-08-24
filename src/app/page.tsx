@@ -37,12 +37,12 @@ export default async function Home() {
       <Navbar isLanding user={session?.user} />
 
       {/* Hero */}
-      <HeroSection lbb={lbb} className="mt-24 px-8 overflow-hidden" />
+      <HeroSection lbb={lbb} className="w-10/12 mt-24 px-8 overflow-hidden" />
 
       {/* About */}
       <AboutSection
         abouts={content.aboutUs}
-        className="w-[85vw] mx-auto scroll-m-24"
+        className="w-10/12 mx-auto scroll-m-24"
       />
 
       {/* Strengths */}
@@ -50,7 +50,7 @@ export default async function Home() {
         <Heading head="Keunggulan LC" subhead="Kenapa Harus Pilih LC?" />
         <StrengthsSection
           strengths={content.strengths}
-          className="w-[85vw] scroll-m-48"
+          className="w-10/12 scroll-m-48"
         />
       </>
 
