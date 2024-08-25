@@ -1,10 +1,10 @@
 <svg width="428" height="493" viewBox="0 0 428 493" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<rect y="189" width="304" height="304" rx="152" fill="#482D83"/>
-<rect x="275" y="426" width="51" height="51" rx="25.5" fill="#482D83"/>
-<rect x="32" y="161" width="51" height="51" rx="25.5" fill="#482D83"/>
-<path d="M338 440.5C338 432.492 344.492 426 352.5 426V426C360.508 426 367 432.492 367 440.5V440.5C367 448.508 360.508 455 352.5 455V455C344.492 455 338 448.508 338 440.5V440.5Z" fill="#482D83"/>
-<path d="M54 134.5C54 126.492 60.4919 120 68.5 120V120C76.5081 120 83 126.492 83 134.5V134.5C83 142.508 76.5081 149 68.5 149V149C60.4919 149 54 142.508 54 134.5V134.5Z" fill="#482D83"/>
-<rect x="90" y="81" width="338" height="338" rx="48" fill="#637CFB" fill-opacity="0.5"/>
+<rect y="189" width="304" height="304" rx="152" fill="black" fill-opacity="0.8"/>
+<rect x="275" y="426" width="51" height="51" rx="25.5" fill="#0A0A0A" fill-opacity="0.8"/>
+<rect x="32" y="161" width="51" height="51" rx="25.5" fill="#0A0A0A" fill-opacity="0.8"/>
+<path d="M338 440.5C338 432.492 344.492 426 352.5 426C360.508 426 367 432.492 367 440.5C367 448.508 360.508 455 352.5 455C344.492 455 338 448.508 338 440.5Z" fill="#0A0A0A" fill-opacity="0.8"/>
+<path d="M54 134.5C54 126.492 60.4919 120 68.5 120C76.5081 120 83 126.492 83 134.5C83 142.508 76.5081 149 68.5 149C60.4919 149 54 142.508 54 134.5Z" fill="#0A0A0A" fill-opacity="0.8"/>
+<rect x="90" y="81" width="338" height="338" rx="48" fill="#DBFF00" fill-opacity="0.85"/>
 <rect x="141" y="-3" width="237" height="422" fill="url(#pattern0_396_15)"/>
 <defs>
 <pattern id="pattern0_396_15" patternContentUnits="objectBoundingBox" width="1" height="1">

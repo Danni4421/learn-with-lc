@@ -46,7 +46,7 @@ export default function TeacherSection({
           >
             <div className="relative">
               <div className="relative w-64 h-60 mx-auto">
-                <div className="w-full h-full bg-blue-300 bg-opacity-30 rounded-t-full absolute"></div>
+                <div className="w-full h-full bg-[#DBFF00] bg-opacity-30 rounded-t-full absolute"></div>
                 <Image
                   src={teacher.image}
                   className="absolute object-cover bottom-0 w-full h-auto rounded-t-full"
@@ -55,7 +55,7 @@ export default function TeacherSection({
               </div>
             </div>
             <div className="z-50">
-              <div className="w-80 rounded-xl flex flex-col items-center p-5 bg-indigo-700 text-white font-bold mx-auto">
+              <div className="w-80 rounded-xl flex flex-col items-center p-5 bg-black text-white font-bold mx-auto">
                 <h4 className="text-2xl text-default">{teacher.name}</h4>
                 <p className="text-white text-wrap text-opacity-70 text-center">
                   {teacher.role}

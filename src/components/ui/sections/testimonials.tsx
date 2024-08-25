@@ -40,7 +40,7 @@ export default function Testimonials({
             <Card className="mx-8 px-6 py-4">
               <div>
                 <div className="flex justify-between">
-                  <div className="text-blue-300 bg-blue-100 flex items-center justify-center text-5xl rounded-full p-2 -ml-14 -mt-4 w-20 h-20">
+                  <div className="text-black bg-[#DBFF00] bg-opacity-50 flex items-center justify-center text-5xl rounded-full p-2 -ml-14 -mt-4 w-20 h-20">
                     <FaQuoteLeft />
                   </div>
                   <h4 className="w-3/4 text-sm text-end mb-2">

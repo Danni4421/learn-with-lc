@@ -33,13 +33,13 @@ export default function Hero({
             <div className="flex flex-col lg:flex-row gap-3 mt-5 lg:mt-20">
               <a
                 href="#"
-                className="bg-indigo-700 hover:bg-indigo-800 px-8 py-4 text-white text-xl text-center rounded-2xl"
+                className="bg-black hover:bg-black hover:shadow-solid1 hover:translate-x-[2px] hover:translate-y-[2px] shadow-solid px-8 py-4 text-white text-xl text-center rounded-2xl transition-transform transition-shadow duration-300 ease-in-out"
               >
                 Mulai Sekarang
               </a>
               <a
                 href="#"
-                className="flex justify-center items-center gap-2 border border-indigo-700 px-8 py-4 text-indigo-700 text-xl hover:bg-indigo-700 hover:text-white rounded-2xl transition-all"
+                className="flex justify-center items-center gap-2 border border-black px-8 py-4 text-black text-xl hover:bg-black hover:text-white  hover:border-[#DBFF00] rounded-2xl transition-all duration-300 ease-in-out"
               >
                 <GoRocket />
                 Eksplorasi

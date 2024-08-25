@@ -10,6 +10,8 @@ export const publicRoutes = [
   "^/$",
   "^/testimonials$",
   `^/testimonials/${uuidRegexPattern}`,
+  '/pages/landing-page',
+  '/forum'
 ];
 
 /**
@@ -22,7 +24,7 @@ export const authRoutes = ["/auth/login", "/auth/register"];
 /**
  * Before accessing this route, Client must be authenticated
  */
-export const authenticatedRoutes = ["/dashboard", "/pages"];
+export const authenticatedRoutes = ["/dashboard"];
 
 /**
  * Prefix that currently used for authentication

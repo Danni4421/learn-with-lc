@@ -105,7 +105,7 @@ export default function Navbar({ isLanding = false, user }: NavbarProps) {
           </div>
 
           <div className="hidden lg:flex lg:items-center lg:ms-6">
-            <div className="hidden space-x-8 lg:-my-px lg:ms-10 lg:flex mx-3">
+            <div className="hidden space-x-8 lg:-my lg:ms-10 lg:flex">
               {isLanding ? (
                 <>
                   <NavLink
@@ -226,7 +226,7 @@ export default function Navbar({ isLanding = false, user }: NavbarProps) {
               ) : (
                 <Link
                   href="/auth/login"
-                  className="px-4 py-2 rounded-lg bg-indigo-700 hover:bg-indigo-800 text-white"
+                  className="px-4 py-2 rounded-lg bg-black text-white shadow-solid hover:shadow-solid1 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[#DBFF00] transition-transform transition-shadow duration-300 ease-in-out"
                 >
                   Login
                 </Link>

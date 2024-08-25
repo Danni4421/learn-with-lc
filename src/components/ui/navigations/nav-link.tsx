@@ -29,9 +29,9 @@ export default function NavLink({
   }, [active]);
 
   const commonClass = clsx(
-    "inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none cursor-pointer hover:border-b-2 hover:border-indigo-600",
-    isActive && "border-b-2 border-indigo-600"
-  );
+    "inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none cursor-pointer hover:border-b-2 hover:border-[#DBFF00]",
+    isActive && "border-b-2 border-[#DBFF00]"
+  );  
 
   if (href) {
     return (

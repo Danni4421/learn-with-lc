@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 
 /** Components */
-import Heading from "@/components/heading";
+import Heading1 from "@/components/heading";
 import Navbar from "@/components/ui/navigations/navbar";
 import Footer from "@/components/footer";
 import HeroSection from "@/components/ui/sections/hero";
@@ -20,6 +20,9 @@ import { fetchAllProgram } from "@/lib/programs";
 import { fetchAllTestimonial } from "@/lib/testimonials";
 import { fetchAllQuestion } from "@/lib/faqs";
 import { fetchAllTeacher } from "@/lib/teachers";
+import { Tooltip} from '@chakra-ui/react';
+import { FaWhatsapp } from 'react-icons/fa';
+
 
 /** Utilities */
 import content from "@/utils/content.json";
@@ -47,7 +50,7 @@ export default async function Home() {
 
       {/* Strengths */}
       <>
-        <Heading head="Keunggulan LC" subhead="Kenapa Harus Pilih LC?" />
+        <Heading1 head="Keunggulan LC" subhead="Kenapa Harus Pilih LC?" />
         <StrengthsSection
           strengths={content.strengths}
           className="w-10/12 scroll-m-48"
@@ -56,7 +59,7 @@ export default async function Home() {
 
       {/* Programs */}
       <>
-        <Heading
+        <Heading1
           head="Program Unggulan"
           subhead="Apa Aja Sih Program Unggulan Kami?"
         />
@@ -66,12 +69,12 @@ export default async function Home() {
       {/* Facilities */}
       <FacilitiesSection
         facilities={content.facilities}
-        className="bg-indigo-700 w-full mt-20 px-5 py-16 scroll-m-12"
+        className="bg-black w-full mt-20 px-5 py-16 scroll-m-12"
       />
 
       {/* Activities */}
       <>
-        <Heading
+        <Heading1
           head="Keseruan Bersama LC"
           subhead="Banyak Hal Seru di Lentera Cendekia"
         />
@@ -80,7 +83,7 @@ export default async function Home() {
 
       {/* Teachers */}
       <>
-        <Heading
+        <Heading1
           head="Team Teaching"
           subhead="Kenalan Sama Team Teaching LC!"
         />
@@ -92,7 +95,7 @@ export default async function Home() {
 
       {/* Testimonials */}
       <>
-        <Heading head="Testimoni Siswa" subhead="Apa Kata Mereka?" />
+        <Heading1 head="Testimoni Siswa" subhead="Apa Kata Mereka?" />
         <TestimonialsSection
           testimonials={testimonials}
           className="w-10/12 my-8 scroll-m-52"
@@ -101,13 +104,21 @@ export default async function Home() {
 
       {/* Faqs */}
       <>
-        <Heading head="FAQ" subhead="Hal yang Sering Ditanyakan" />
+        <Heading1 head="FAQ" subhead="Hal yang Sering Ditanyakan" />
         <FaqsSection faqs={faqs} className="scroll-m-48" />
       </>
 
+      <div className="fixed bottom-5 right-5 md:bottom-10 md:right-10 z-[999] h-16 w-16 bg-[#25D366] rounded-full flex items-center justify-center text-white text-4xl">
+                    <Tooltip content="Hubungi Kami" placement="left">
+                        <a href="#home">
+                            <FaWhatsapp />
+                        </a>
+                    </Tooltip>
+                </div>
+
       {/* Footer */}
       <Footer
-        className="mt-24 bg-inherit"
+        className="mt-24 bg-slate-50"
         contacts={content.footer.contacts}
         navigations={content.footer.navigations}
         popularCourses={content.footer.popularCourses}

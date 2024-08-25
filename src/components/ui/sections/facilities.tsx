@@ -18,7 +18,7 @@ export default function Facilities({
   return (
     <section {...props} id="facilities" className={className}>
       <div className="font-default font-bold text-center mb-14 w-3/5 mx-auto">
-        <span className="text-white">Fasilitas</span>
+        <span className="text-black bg-effect1 mb-6">Fasilitas</span>
         <p className="text-white text-3xl">
           Fasilitas Terbaik untuk Mendukung Pembelajaran yang Optimal dan
           Menyenangkan

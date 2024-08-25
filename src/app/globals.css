@@ -77,3 +77,53 @@
         @apply bg-indigo-500 hover:bg-indigo-600 text-white;
     }
 }
+.hover\:shadow-solid1:hover {
+    box-shadow: 2px 2px 0 #DBFF00; /* Solid shadow with no blur */
+  }
+  .shadow-solid {
+    box-shadow: 5px 5px 0 #DBFF00; /* Solid shadow with no blur */
+  }
+  .bg-effect {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+    transform: rotate(-5deg); /* Memiringkan teks */
+  }
+  
+  .bg-effect::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 130%;
+    height: 150%;
+    background-color: #DBFF00; /* Background kuning */
+    transform: translate(-50%, -50%) rotate(0deg); /* Memastikan background tetap pada sudut awal */
+    z-index: -2;
+    box-shadow: 10px 10px 0px #000000; /* Bayangan solid berwarna hitam */
+  }
+  
+  
+  
+  .bg-effect1 {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+    transform: rotate(-5deg); /* Memiringkan teks */
+  }
+  
+  .bg-effect1::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 130%;
+    height: 150%;
+    background-color: #DBFF00; /* Background kuning */
+    transform: translate(-50%, -50%) rotate(0deg); /* Memastikan background tetap pada sudut awal */
+    z-index: -2;
+    box-shadow: 10px 10px 0px #fff; /* Bayangan solid berwarna hitam */
+  }
+  
+  
+  

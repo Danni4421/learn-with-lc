@@ -1,8 +1,6 @@
 <svg width="334" height="429" viewBox="0 0 334 429" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<rect y="130" width="235" height="235" rx="36" fill="#637CFB" fill-opacity="0.5"/>
-<rect x="99" y="41" width="235" height="235" rx="36" fill="#0C30E6" fill-opacity="0.5"/>
-<rect x="250" y="289" width="56" height="56" rx="28" fill="#0C30E5" fill-opacity="0.5"/>
-<rect x="31" y="63" width="56" height="56" rx="28" fill="#637CFB" fill-opacity="0.5"/>
+<rect y="130" width="235" height="235" rx="36" fill="black" fill-opacity="0.8"/>
+<rect x="99" y="41" width="235" height="235" rx="36" fill="#DBFF00" fill-opacity="0.85"/>
 <rect x="59" y="-32" width="235" height="461" fill="url(#pattern0_406_19)"/>
 <defs>
 <pattern id="pattern0_406_19" patternContentUnits="objectBoundingBox" width="1" height="1">
