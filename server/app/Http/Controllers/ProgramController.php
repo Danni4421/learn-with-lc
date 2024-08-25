@@ -7,7 +7,6 @@ use App\Exceptions\ServerError;
 use App\Http\Requests\Program\PostProgramRequest;
 use App\Http\Requests\Program\PutProgramRequest;
 use App\Models\Program;
-use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;

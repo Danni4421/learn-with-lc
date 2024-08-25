@@ -14,22 +14,30 @@ use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
+    protected $roles = [
+        "administrator", "public"
+    ];
+
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-        $level = Level::create([
-            'id' => Str::random(16),
-            'name' => 'Administrastor',
-            'role' => 'administrator'
-        ]);
+        foreach ($this->roles as $role) {
+            Level::create([
+                'id' => Str::random(16),
+                'name' => ucwords($role),
+                'role' => $role
+            ]);
+        }
 
         User::factory()->create([
-            'level_id' => $level->id,
-            'name' => 'Test User',
+            'level_id' => Level::where(['role' => 'administrator'])->first()->id,
+            'username' => 'umu-chasunah',
+            'firstname' => 'Umu',
+            'lastname' => 'Chasunah',
             'email' => 'test@example.com',
-            'image' => '/assets/images/hero.png'
+            'image' => '/assets/images/teachers/woman.jpg'
         ]);
 
         LBB::updateOrCreate([

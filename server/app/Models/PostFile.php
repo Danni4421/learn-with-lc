@@ -4,15 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Level extends Model
+class PostFile extends Model
 {
+    use HasFactory;
+
     /**
      * Define Tablename.
      * 
      * @var string
      */
-    protected $table = 'levels';
+    protected $table = 'post_files';
 
     /**
      * Define the ability for primary key cannot to incrementing.
@@ -35,16 +38,26 @@ class Level extends Model
      */
     protected $fillable = [
         'id',
-        'name',
+        'post_id',
+        'path',
     ];
 
     /**
-     * The attributes that are hidden when queried
+     * The attributes that are hidden.
      * 
      * @var array<int, string>
      */
     protected $hidden = [
-        'created_at',
-        'updated_at'
+        'post_id',
     ];
+
+    /**
+     * This comment belongs to specific post
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function post(): BelongsTo
+    {
+        return $this->belongsTo(Post::class, 'id', 'post_id');
+    }
 }

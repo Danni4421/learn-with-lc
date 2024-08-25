@@ -1,12 +1,20 @@
-export type User = {
+export type Level = {
   id: string;
   name: string;
+  role: string;
+};
+
+export type User = {
+  id: string;
+  username: string;
+  firstname: string;
+  lastname: string;
   email: string;
   email_verified_at: string;
-  level_id: string;
   image: string;
   created_at: Date;
   updated_at: Date;
+  level: Level;
 };
 
 export type ActivityItem = {

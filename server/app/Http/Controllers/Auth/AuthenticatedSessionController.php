@@ -29,7 +29,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function me(): JsonResponse
     {
-        $user = User::find(Auth::guard('api')->user()->id);
+        $user = User::with(['level'])->find(Auth::guard('api')->user()->id);
 
         return response()->json([
             'status' => 'success',
