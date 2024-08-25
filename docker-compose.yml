@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: learnwithlc-api
+    environment:
+      - APP_ENV=production
+      - APP_URL=http://api.example.localhost
+      - ASSET_URL=http://api.example.localhost
+      - DB_HOST=host.docker.internal
+    networks:
+      - app-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: learnwithlc-app
+    environment:
+      - NODE_ENV=development
+      - BASE_API_URL=http://learnwithlc-api:9000/api
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: learnwithlc-webserver
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ./.docker/nginx/default.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app
+      - api
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

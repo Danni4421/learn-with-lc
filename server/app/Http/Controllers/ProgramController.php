@@ -48,7 +48,7 @@ class ProgramController extends Controller
     public function all(): JsonResponse
     {
         $programs = Program::orderByDesc('created_at')->get()->map(function(Program $program) {
-            $program->image = !is_null($program->image) ? asset($program->image) : null;
+            $program->image = !is_null($program->image) ? $this->asset($program->image) : null;
             return $program;
         });
 
@@ -85,7 +85,7 @@ class ProgramController extends Controller
                     'name' => $program->name,
                     'description' => $program->description,
                     'order_number' => $program->order_number,
-                    'image' => asset($program->image)
+                    'image' => $this->asset($program->image)
                 ],
             ],
         ]);

@@ -1,0 +1,8 @@
+# Frontend
+.next/
+.gitignore
+.dockerignore
+node_modules/
+
+# Backend
+server/vendor

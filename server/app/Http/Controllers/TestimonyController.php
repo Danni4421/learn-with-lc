@@ -35,7 +35,7 @@ class TestimonyController extends Controller
     public function all(): JsonResponse
     {
         $testimonials = Testimony::get()->map(function(Testimony $testimony) {
-            $testimony->image = !is_null($testimony->image) ? asset($testimony->image) : null;
+            $testimony->image = !is_null($testimony->image) ? $this->asset($testimony->image) : null;
             return $testimony;
         });
 
@@ -62,7 +62,7 @@ class TestimonyController extends Controller
             'data' => [
                 'testimony' => [
                     ...$testimony->toArray(),
-                    'image' => !is_null($testimony->image) ? asset($testimony->image) : null
+                    'image' => !is_null($testimony->image) ? $this->asset($testimony->image) : null
                 ]
             ]
         ]);
