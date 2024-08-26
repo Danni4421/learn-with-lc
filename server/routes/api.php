@@ -4,10 +4,12 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\LBBController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TestimonyController;
+use App\Models\PostComment;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['api'])->group(function() {
@@ -28,6 +30,8 @@ Route::middleware(['api'])->group(function() {
 
         Route::get('posts', [PostController::class, 'all'])->name('posts.all');
         Route::get('posts/{id}', [PostController::class, 'show'])->name('posts.show');
+        Route::get('/posts/{postId}/comments', [PostCommentController::class, 'all'])->name('posts.comments.all');
+        Route::get('/posts/{postId}/comments/{commentId}', [PostCommentController::class, 'show'])->name('posts.comments.show');
 
         Route::get('/user/{username}', [AccountController::class, 'showByUsername'])->name('user.show.by.username');
     /** 
@@ -41,9 +45,8 @@ Route::middleware(['api'])->group(function() {
          * Only user with public and student role can access this routes
          */
         Route::middleware(['auth:api', 'role:public,student'])->group(function() {
-            Route::prefix('posts')->group(function() {
-                Route::post('/', [PostController::class, 'store'])->name('posts.store');
-            });
+            Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+            Route::post('/posts/{postId}/comments', [PostCommentController::class, 'store'])->name('posts.comments.store');
         });
         
         /**
@@ -52,6 +55,8 @@ Route::middleware(['api'])->group(function() {
         Route::middleware(['auth:api', 'role:all'])->group(function() {
             Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
             Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.delete');
+            Route::put('/posts/{postId}/comments/{commentId}', [PostCommentController::class, 'update'])->name('posts.comments.update');
+            Route::delete('/posts/{postId}/comments/{commentId}', [PostCommentController::class, 'destroy'])->name('posts.comments.delete');
         });
     /**
      * End Authenticated Routes
