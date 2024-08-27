@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\AuthorizationError;
 use App\Exceptions\NotFoundError;
 use App\Exceptions\ServerError;
 use App\Http\Requests\Post\PutPostRequest;
@@ -82,7 +83,7 @@ class PostController extends Controller
      * 
      * @param PutPostRequest $request
      * @param string $id
-     * @throws NotFoundError
+     * @throws NotFoundError | AuthorizationError
      * @return JsonResponse
      */
     public function update(PutPostRequest $request, string $id): JsonResponse
@@ -93,8 +94,12 @@ class PostController extends Controller
             throw new NotFoundError('Gagal mengubah post, Post tidak ditemukan.');
         }
 
-        $post->update($request->getData());
+        if ($post->user_id != auth('api')->user()->id) {
+            throw new AuthorizationError('Anda tidak diperbolehkan mengubah post.');
+        }
 
+        $post->update($request->getData());
+ 
         return response()->json([
             'status' => 'success',
             'message' => 'Berhasil mengubah post.'
@@ -105,7 +110,7 @@ class PostController extends Controller
      * Delete post by specific id
      * 
      * @param string $id
-     * @throws NotFoundError
+     * @throws NotFoundError | AuthorizationError
      * @return JsonResponse
      */
     public function destroy(string $id): JsonResponse
@@ -114,6 +119,10 @@ class PostController extends Controller
 
         if (!$post) {
             throw new NotFoundError('Gagal menghapus post, Post tidak ditemukan.');
+        }
+
+        if ($post->user_id != auth('api')->user()->id) {
+            throw new AuthorizationError('Anda tidak diperbolehkan mengubah post.');
         }
 
         $post->delete();

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\AuthorizationError;
 use App\Exceptions\NotFoundError;
 use App\Exceptions\ServerError;
-use App\Http\Requests\CommentRequest;
+use App\Http\Requests\PostCommentRequest;
 use App\Models\PostComment;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
@@ -14,12 +15,12 @@ class PostCommentController extends Controller
     /**
      * Store a new comment
      * 
-     * @param CommentRequest $request
+     * @param PostCommentRequest $request
      * @param string $postId
      * @throws ServerError
      * @return JsonResponse
      */
-    public function store(CommentRequest $request, string $postId): JsonResponse
+    public function store(PostCommentRequest $request, string $postId): JsonResponse
     {
         $user = auth('api')->user();
 
@@ -90,18 +91,22 @@ class PostCommentController extends Controller
     /**
      * Update comment based on post
      * 
-     * @param CommentRequest $request
+     * @param PostCommentRequest $request
      * @param string $postId
      * @param string $commentId
      * @throws NotFoundError
-     * @return JsonResponse|mixed
+     * @return JsonResponse
      */
-    public function update(CommentRequest $request, string $postId, string $commentId): JsonResponse
+    public function update(PostCommentRequest $request, string $postId, string $commentId): JsonResponse
     {
         $comment = PostComment::where(['post_id' => $postId, 'id' => $commentId])->first();
 
         if (!$comment) {
-            throw new NotFoundError('Gagal mendapatkan komentar, Komentar tidak ditemukan.');
+            throw new NotFoundError('Gagal mengubah komentar, Komentar tidak ditemukan.');
+        }
+
+        if ($comment->user_id != auth('api')->user()->id) {
+            throw new AuthorizationError('Gagal mengubah komentar, Anda bukan pemilik komentar.');
         }
 
         $comment->update($request->getData());
@@ -126,6 +131,10 @@ class PostCommentController extends Controller
 
         if (!$comment) {
             throw new NotFoundError('Gagal menghapus komentar, Komentar tidak ditemukan.');
+        }
+
+        if ($comment->user_id != auth('api')->user()->id) {
+            throw new AuthorizationError('Gagal mengubah komentar, Anda bukan pemilik komentar.');
         }
 
         $comment->delete();
