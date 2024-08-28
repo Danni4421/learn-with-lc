@@ -121,7 +121,9 @@ class PostController extends Controller
             throw new NotFoundError('Gagal menghapus post, Post tidak ditemukan.');
         }
 
-        if ($post->user_id != auth('api')->user()->id) {
+        $user = auth('api')->user();
+
+        if ($post->user_id != $user->id) {
             throw new AuthorizationError('Anda tidak diperbolehkan mengubah post.');
         }
 

@@ -14,6 +14,16 @@ use Illuminate\Support\Str;
 
 class CommentReplyController extends Controller
 {
+    /**
+     * Function to store a new reply
+     * 
+     * @param CommentReplyRequest $request
+     * @param string $postId
+     * @param string $commentId
+     * @throws NotFoundError
+     * @throws ServerError
+     * @return JsonResponse
+     */
     public function store(CommentReplyRequest $request, string $postId, string $commentId): JsonResponse
     {
         $comment = PostComment::where(['post_id' => $postId, 'id' => $commentId])->first(); 
@@ -44,6 +54,13 @@ class CommentReplyController extends Controller
         ], 201); 
     }
 
+    /**
+     * Get all replies for specific comment
+     * 
+     * @param string $postId
+     * @param string $commentId
+     * @return JsonResponse
+     */
     public function all(string $postId, string $commentId): JsonResponse
     {
         $replies = CommentReply::select('replies.*')
@@ -61,7 +78,18 @@ class CommentReplyController extends Controller
         ]);
     }
 
-    public function update(CommentReplyRequest $request, string $postId, string $commentId, string $replyId)
+    /**
+     * Update reply based on specific comment
+     * 
+     * @param CommentReplyRequest $request
+     * @param string $postId
+     * @param string $commentId
+     * @param string $replyId
+     * @throws NotFoundError
+     * @throws AuthorizationError
+     * @return JsonResponse
+     */
+    public function update(CommentReplyRequest $request, string $postId, string $commentId, string $replyId): JsonResponse
     {
         $post = Post::find($postId);
         
@@ -95,7 +123,17 @@ class CommentReplyController extends Controller
         ]);
     }
 
-    public function destroy(string $postId, string $commentId, string $replyId)
+    /**
+     * Delete reply based on specific comment
+     * 
+     * @param string $postId
+     * @param string $commentId
+     * @param string $replyId
+     * @throws NotFoundError
+     * @throws AuthorizationError
+     * @return JsonResponse
+     */
+    public function destroy(string $postId, string $commentId, string $replyId): JsonResponse
     {
         $post = Post::find($postId);
         

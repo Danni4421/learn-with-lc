@@ -71,7 +71,7 @@ Route::middleware(['api'])->group(function() {
      * Administrator Routes
      */
         Route::middleware(['auth:api', 'role:administrator'])->group(function() {
-            Route::prefix('level')->group(function() {
+            Route::prefix('levels')->group(function() {
                 Route::post('/', [LevelController::class, 'store'])->name('level.store');
                 Route::delete('/{id}', [LevelController::class, 'destroy'])->name('level.delete');
             });

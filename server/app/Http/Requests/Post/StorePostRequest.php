@@ -35,7 +35,6 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'exists:'.User::class.',id'],
             'title' => ['required', 'string', 'max:150'],
             'content' => ['required', 'string'],
             'files' => ['array'],
@@ -51,8 +50,6 @@ class StorePostRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'user_id.required' => 'User perlu untuk diisi.',
-            'user_id.exists' => 'User tidak ditemukan.',
             'title.required' => 'Judul perlu untuk diisi.',
             'title.string' => 'Judul harus berupa sebuah karakter.',
             'title.max' => 'Judul memiliki maksimal 150 karakter.',
@@ -94,9 +91,11 @@ class StorePostRequest extends FormRequest
             }
         }
 
+        $user = auth('api')->user();
+
         $post = Post::create([
             'id' => Str::uuid(),
-            'user_id' => $this->input('user_id'),
+            'user_id' => $user->id,
             'title' => $this->input('title'),
             'content' => $this->input('content'),
             'status' => $this->default_post_status,
