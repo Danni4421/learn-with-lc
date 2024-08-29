@@ -6,8 +6,11 @@ use App\Exceptions\AuthorizationError;
 use App\Exceptions\NotFoundError;
 use App\Exceptions\ServerError;
 use App\Http\Requests\PostCommentRequest;
+use App\Models\CommentFile;
+use App\Models\Post;
 use App\Models\PostComment;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostCommentController extends Controller
@@ -22,14 +25,13 @@ class PostCommentController extends Controller
      */
     public function store(PostCommentRequest $request, string $postId): JsonResponse
     {
-        $user = auth('api')->user();
+        $post = Post::find($postId);
 
-        $comment = PostComment::create([
-            'id' => Str::uuid(),
-            'user_id' => $user->id,
-            'post_id' => $postId,
-            ...$request->getData(),
-        ]);
+        if (!$post) {
+            throw new NotFoundError('Gagal menambahkan komentar, Post tidak ditemukan.');
+        }
+
+        $comment = $request->store_comment($postId);
 
         if (!$comment) {
             throw new ServerError('Terjadi kesalahan pada server.');
@@ -52,7 +54,7 @@ class PostCommentController extends Controller
      */
     public function all(string $postId): JsonResponse
     {
-        $comments = PostComment::where(['post_id' => $postId])->get();
+        $comments = PostComment::with(['comment_files'])->where(['post_id' => $postId])->get();
 
         return response()->json([
             'status' => 'success',
@@ -142,6 +144,36 @@ class PostCommentController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Berhasil menghapus komentar.'
+        ]);
+    }
+
+    public function destroy_comment_files(string $postId, string $commentId, string $fileId)
+    {
+        $comment = PostComment::where(['post_id' => $postId, 'id' => $commentId])->first();
+
+        if (!$comment) {
+            throw new NotFoundError('Gagal menghapus komentar, Komentar tidak ditemukan.');
+        }
+
+        if ($comment->user_id != auth('api')->user()->id) {
+            throw new AuthorizationError('Gagal menghapus komentar, Anda bukan pemilik komentar.');
+        }
+
+        $comment_file = CommentFile::find($fileId);        
+
+        if (!$comment_file) {
+            throw new NotFoundError('Gagal menghapus file comment, File tidak ditemukan');
+        }
+
+        $comment_file_name = last(explode('/', $comment_file->path));
+
+        Storage::delete('comment_files/' . $comment_file_name);
+
+        $comment_file->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Berhasil menghapus file comment.',
         ]);
     }
 }

@@ -60,7 +60,9 @@ Route::middleware(['api'])->group(function() {
          */
         Route::middleware(['auth:api', 'role:all'])->group(function() {
             Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.delete');
+            Route::delete('/posts/{postId}/files/{fileId}', [PostController::class, 'destroy_post_files'])->name('posts.files.destroy');
             Route::delete('/posts/{postId}/comments/{commentId}', [PostCommentController::class, 'destroy'])->name('posts.comments.delete');
+            Route::delete('/posts/{postId}/comments/{commentId}/files/{fileId}', [PostCommentController::class, 'destroy_comment_files'])->name('posts.comments.files.destroy');
             Route::delete('/posts/{postId}/comments/{commentId}/replies/{replyId}', [CommentReplyController::class, 'destroy'])->name('posts.comments.destroy');
         });
     /**

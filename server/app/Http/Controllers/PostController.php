@@ -8,7 +8,9 @@ use App\Exceptions\ServerError;
 use App\Http\Requests\Post\PutPostRequest;
 use App\Http\Requests\Post\StorePostRequest;
 use App\Models\Post;
+use App\Models\PostFile;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -132,6 +134,38 @@ class PostController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Berhasil menghapus post.'
+        ]);
+    }
+
+    public function destroy_post_files(string $postId, string $fileId)
+    {
+        $post = Post::with(['files'])->find($postId);
+
+        if (!$post) {
+            throw new NotFoundError('Gagal menghapus file post, Post tidak ditemukan');
+        }
+
+        $user = auth('api')->user();
+
+        if ($post->user_id != $user->id) {
+            throw new AuthorizationError('Anda tidak diperbolehkan mengubah post.');
+        }
+
+        $post_file = PostFile::find($fileId);
+
+        if (!$post_file) {
+            throw new NotFoundError('Gagal menghapus file post, Post tidak ditemukan.');
+        }
+
+        $post_file_name = last(explode('/', $post_file->path));
+
+        Storage::drive('public')->delete('post_files/' . $post_file_name);
+
+        $post_file->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Berhasil menghapus file post.'
         ]);
     }
 }

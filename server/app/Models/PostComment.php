@@ -76,6 +76,16 @@ class PostComment extends Model
     }
 
     /**
+     * Comment files as an images
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comment_files(): HasMany
+    {
+        return $this->hasMany(CommentFile::class, 'comment_id', 'id');
+    }
+
+    /**
      * This comment has one owner or user
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
