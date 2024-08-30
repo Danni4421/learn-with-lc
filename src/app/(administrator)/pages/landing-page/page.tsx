@@ -1,14 +1,14 @@
 "use server";
 
 /** Components */
-import PrimaryButton from "@/components/ui/buttons/primary";
-import HeroSection from "@/components/ui/sections/hero";
+import { Hero as HeroSection } from "@/components/ui/sections/hero";
+import { EditablePrograms } from "@/components/ui/sections/editable-programs";
+import { EditableActivities } from "@/components/ui/sections/editable-activities";
 import FAQsTable from "@/components/ui/tables/faqs";
 import TeacherTable from "@/components/ui/tables/teachers";
 import TestimonialTable from "@/components/ui/tables/testimonials";
-import EditablePrograms from "@/components/ui/sections/editable-programs";
-import EditableActivities from "@/components/ui/sections/editable-activities";
 import { Box, Flex, Heading } from "@chakra-ui/react";
+import PrimaryButton from "@/components/ui/buttons/primary";
 import { FaPlus } from "react-icons/fa";
 
 /** Libraries */

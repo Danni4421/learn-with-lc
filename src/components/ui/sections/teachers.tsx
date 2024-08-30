@@ -1,9 +1,11 @@
 "use client";
 
-import { Teacher } from "@/types";
-import { Card, Image } from "@chakra-ui/react";
-import clsx from "clsx";
+/** Components */
+import { Image } from "@chakra-ui/react";
 import { Swiper, SwiperSlide } from "swiper/react";
+
+/** Types */
+import { type Teacher } from "@/types";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -13,7 +15,7 @@ interface TeacherSectionProps {
   className?: string;
 }
 
-export default function TeacherSection({
+export function TeacherSection({
   teachers,
   className = "",
   ...props

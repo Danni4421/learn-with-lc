@@ -1,13 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { deleteTeacherById, fetchAllTeacher } from "@/lib/teachers";
-import { Box, Button, Flex, Image, Spinner, Text } from "@chakra-ui/react";
+
+/** Components */
+import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import DataTable, { TableColumn } from "react-data-table-component";
-import { FaEdit, FaTrash } from "react-icons/fa";
 import { PiGenderMaleBold, PiGenderFemaleBold } from "react-icons/pi";
-import { Teacher } from "@/types";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import TableLoader from "@/components/table-loader";
+
+/** Types */
+import { Teacher } from "@/types";
+
+/** Libraries */
+import { deleteTeacherById, fetchAllTeacher } from "@/lib/teachers";
 
 interface TeacherTableProps {
   initialData: Teacher[];

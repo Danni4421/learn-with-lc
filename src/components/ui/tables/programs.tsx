@@ -1,12 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Box, Button, Flex, Image, Spinner, Text } from "@chakra-ui/react";
+
+/** Components */
+import { Box, Button, Flex, Image } from "@chakra-ui/react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { Program } from "@/types";
-import { fetchAllProgram, deleteProgramById } from "@/lib/programs";
 import TableLoader from "@/components/table-loader";
+
+/** Types */
+import { Program } from "@/types";
+
+/** Libraries */
+import { fetchAllProgram, deleteProgramById } from "@/lib/programs";
 
 interface ProgramTableProps {
   initialData: Program[];

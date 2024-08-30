@@ -1,25 +1,26 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { deleteQuestionById } from "@/lib/faqs";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+
+/** Components */
+import { Box, Button, Flex } from "@chakra-ui/react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { fetchAllQuestion } from "@/lib/faqs";
-import TableLoader from "../../table-loader";
+import TableLoader from "@/components/table-loader";
 
-interface RowData {
-  id: string;
-  question: string;
-  answer: string;
-}
+/** Types */
+import { Question } from "@/types";
+
+/** Libraries */
+import { deleteQuestionById } from "@/lib/faqs";
+import { fetchAllQuestion } from "@/lib/faqs";
 
 interface FAQsTableProps {
-  initialData: RowData[];
+  initialData: Question[];
 }
 
 export default function FAQsTable({ initialData }: FAQsTableProps) {
-  const [data, setData] = useState<RowData[]>(initialData);
+  const [data, setData] = useState<Question[]>(initialData);
   const [pending, setPending] = useState<boolean>(true);
 
   const refetch = async () => {
@@ -27,7 +28,7 @@ export default function FAQsTable({ initialData }: FAQsTableProps) {
     setData(updatedData);
   };
 
-  const ActionCell = ({ row }: { row: RowData }) => (
+  const ActionCell = ({ row }: { row: Question }) => (
     <Flex gap="2">
       <Button
         px="2"
@@ -60,12 +61,13 @@ export default function FAQsTable({ initialData }: FAQsTableProps) {
     </Flex>
   );
 
-  const columns: TableColumn<RowData>[] = [
+  const columns: TableColumn<Question>[] = [
     { name: "Pertanyaan", selector: (row) => row.question, sortable: true },
     {
       name: "Jawaban",
       cell: (row) => <span dangerouslySetInnerHTML={{ __html: row.answer }} />,
       sortable: true,
+      minWidth: "60%",
     },
     {
       name: "Aksi",

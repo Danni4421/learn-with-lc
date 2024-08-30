@@ -4,15 +4,15 @@ import { auth } from "@/auth";
 import Heading1 from "@/components/heading";
 import Navbar from "@/components/ui/navigations/navbar";
 import Footer from "@/components/footer";
-import HeroSection from "@/components/ui/sections/hero";
-import AboutSection from "@/components/ui/sections/about";
-import StrengthsSection from "@/components/ui/sections/strengths";
-import ProgramsSection from "@/components/ui/sections/programs";
-import FacilitiesSection from "@/components/ui/sections/facilities";
-import ActivitiesSection from "@/components/ui/sections/activities";
-import TeacherSection from "@/components/ui/sections/teachers";
-import TestimonialsSection from "@/components/ui/sections/testimonials";
-import FaqsSection from "@/components/ui/sections/faqs";
+import { Hero as HeroSection } from "@/components/ui/sections/hero";
+import { About as AboutSection } from "@/components/ui/sections/about";
+import { Strengths as StrengthsSection } from "@/components/ui/sections/strengths";
+import { Programs as ProgramsSection } from "@/components/ui/sections/programs";
+import { Facilities as FacilitiesSection } from "@/components/ui/sections/facilities";
+import { Activities as ActivitiesSection } from "@/components/ui/sections/activities";
+import { TeacherSection } from "@/components/ui/sections/teachers";
+import { Testimonials as TestimonialsSection } from "@/components/ui/sections/testimonials";
+import { Faqs as FaqsSection } from "@/components/ui/sections/faqs";
 
 /** Libraries */
 import { fecthLBB } from "@/lib/lbb";
@@ -20,9 +20,8 @@ import { fetchAllProgram } from "@/lib/programs";
 import { fetchAllTestimonial } from "@/lib/testimonials";
 import { fetchAllQuestion } from "@/lib/faqs";
 import { fetchAllTeacher } from "@/lib/teachers";
-import { Tooltip} from '@chakra-ui/react';
-import { FaWhatsapp } from 'react-icons/fa';
-
+import { Tooltip } from "@chakra-ui/react";
+import { FaWhatsapp } from "react-icons/fa";
 
 /** Utilities */
 import content from "@/utils/content.json";
@@ -108,13 +107,13 @@ export default async function Home() {
         <FaqsSection faqs={faqs} className="scroll-m-48" />
       </>
 
-      <div className="fixed bottom-5 right-5 md:bottom-10 md:right-10 z-[999] h-16 w-16 bg-[#25D366] rounded-full flex items-center justify-center text-white text-4xl">
-                    <Tooltip content="Hubungi Kami" placement="left">
-                        <a href="#home">
-                            <FaWhatsapp />
-                        </a>
-                    </Tooltip>
-                </div>
+      <div className="fixed bottom-5 right-5 md:bottom-10 md:right-10 z-50 h-16 w-16 bg-emerald-300 rounded-full flex items-center justify-center text-white text-4xl hover:bg-emerald-400 transition-all">
+        <Tooltip content="Hubungi Kami" placement="left">
+          <a href="#home">
+            <FaWhatsapp />
+          </a>
+        </Tooltip>
+      </div>
 
       {/* Footer */}
       <Footer

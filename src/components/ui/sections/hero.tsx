@@ -1,8 +1,11 @@
 "use client";
 
-import { type LBB } from "@/types";
+/** Components */
 import { Image } from "@chakra-ui/react";
 import { GoRocket } from "react-icons/go";
+
+/** Types */
+import { type LBB } from "@/types";
 
 type HeroProps = {
   lbb: LBB;
@@ -10,7 +13,7 @@ type HeroProps = {
   hideActionButton?: boolean;
 };
 
-export default function Hero({
+export function Hero({
   lbb,
   className = "",
   hideActionButton = false,
@@ -33,7 +36,7 @@ export default function Hero({
             <div className="flex flex-col lg:flex-row gap-3 mt-5 lg:mt-20">
               <a
                 href="#"
-                className="bg-black hover:bg-black hover:shadow-solid1 hover:translate-x-[2px] hover:translate-y-[2px] shadow-solid px-8 py-4 text-white text-xl text-center rounded-2xl transition-transform transition-shadow duration-300 ease-in-out"
+                className="bg-black hover:bg-black hover:shadow-solid1 hover:translate-x-[2px] hover:translate-y-[2px] shadow-solid px-8 py-4 text-white text-xl text-center rounded-2xl transition-transform duration-300 ease-in-out"
               >
                 Mulai Sekarang
               </a>

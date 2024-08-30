@@ -1,29 +1,27 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { deleteTestimonyById, fetchAllTestimonial } from "@/lib/testimonials";
-import { Box, Button, Flex, Spinner, Text } from "@chakra-ui/react";
+
+/** Components */
+import { Box, Button, Flex } from "@chakra-ui/react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import TableLoader from "@/components/table-loader";
 
-interface RowData {
-  id: string;
-  testimony: string;
-  testimoner_name: string;
-  now_studied_at: string;
-  last_graduate_at: string;
-  image: string;
-}
+/** Types */
+import { Testimony } from "@/types";
+
+/** Libraries */
+import { deleteTestimonyById, fetchAllTestimonial } from "@/lib/testimonials";
 
 interface TestimonialTableProps {
-  initialData: RowData[];
+  initialData: Testimony[];
 }
 
 export default function TestimonialTable({
   initialData,
 }: TestimonialTableProps) {
-  const [data, setData] = useState<RowData[]>(initialData);
+  const [data, setData] = useState<Testimony[]>(initialData);
   const [pending, setPending] = useState<boolean>(true);
 
   const refetch = async () => {
@@ -31,7 +29,7 @@ export default function TestimonialTable({
     setData(updatedData);
   };
 
-  const ActionCell = ({ row }: { row: RowData }) => (
+  const ActionCell = ({ row }: { row: Testimony }) => (
     <Flex gap="2">
       <Button
         px="2"
@@ -64,8 +62,13 @@ export default function TestimonialTable({
     </Flex>
   );
 
-  const columns: TableColumn<RowData>[] = [
-    { name: "Testimony", selector: (row) => row.testimony, sortable: true },
+  const columns: TableColumn<Testimony>[] = [
+    {
+      name: "Testimony",
+      selector: (row) => row.testimony,
+      sortable: true,
+      width: "300px",
+    },
     {
       name: "Testimoner",
       selector: (row) => row.testimoner_name,

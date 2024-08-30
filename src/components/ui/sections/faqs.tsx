@@ -2,11 +2,13 @@
 
 import { useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
-import { Question } from "@/types";
 
+/** Components */
 import { Image } from "@chakra-ui/react";
 import { FaAngleDown } from "react-icons/fa";
 
+/** Types */
+import { type Question } from "@/types";
 interface FaqsProps {
   faqs: Question[];
   className?: string;
@@ -17,7 +19,7 @@ interface AccordionComponentProps {
   content: string;
 }
 
-export default function Faqs({ faqs, className = "", ...props }: FaqsProps) {
+export function Faqs({ faqs, className = "", ...props }: FaqsProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -50,7 +52,7 @@ export default function Faqs({ faqs, className = "", ...props }: FaqsProps) {
       <Image src="images/faq.svg" alt="Image for frequently asked question" />
       <div className="w-[85vw] md:w-[70vw] lg:w-[50vw]">
         <div className="mx-auto px-5 bg-white min-h-sceen">
-          <div className="grid divide-y divide-neutral-200 max-w-xl mx-auto mt-8">
+          <div className="grid divide-y divide-neutral-200 mx-auto mt-8">
             {faqs.map((faq, index) => (
               <AccordionComponent
                 key={index}
