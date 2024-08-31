@@ -1,5 +1,5 @@
 <aside class="w-96 min-h-screen overflow-y-auto" aria-label="Sidebar">
-    <div class="px-6 py-4 min-h-full overflow-y-auto bg-gray-50 dark:bg-gray-800">
+    <div class="px-6 py-4 max-h-screen min-h-full overflow-y-auto bg-gray-50 dark:bg-gray-800">
         <h2 class="text-2xl text-white font-bold">LearnWithLC API</h2>
 
         <ul class="space-y-2 mt-10">
@@ -208,6 +208,18 @@
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Post a new thread</a>
                     </li>
                     <li>
+                        <a href="#post-thread-photos"
+                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Post a new thread photos</a>
+                    </li>
+                    <li>
+                        <a href="#like-thread"
+                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Like a thread</a>
+                    </li>
+                    <li>
+                        <a href="#dislike-thread"
+                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Dislike a thread</a>
+                    </li>
+                    <li>
                         <a href="#get-all-thread"
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Get all thread</a>
                     </li>
@@ -218,6 +230,10 @@
                     <li>
                         <a href="#update-thread"
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Update thread</a>
+                    </li>
+                    <li>
+                        <a href="#delete-thread-photo"
+                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Delete thread photo</a>
                     </li>
                     <li>
                         <a href="#delete-thread"
@@ -238,12 +254,28 @@
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Post a new comment</a>
                     </li>
                     <li>
+                        <a href="#post-comment-photo"
+                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Post a comment photo</a>
+                    </li>
+                    <li>
+                        <a href="#like-comment"
+                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Like a comment</a>
+                    </li>
+                    <li>
+                        <a href="#dislike-comment"
+                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Dislike a comment</a>
+                    </li>
+                    <li>
                         <a href="#get-all-comment"
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Get all comment from a thread</a>
                     </li>
                     <li>
                         <a href="#update-comment"
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Update comment</a>
+                    </li>
+                    <li>
+                        <a href="#delete-comment-photo"
+                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Delete comment photo</a>
                     </li>
                     <li>
                         <a href="#delete-comment"

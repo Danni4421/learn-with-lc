@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\AuthorizationError;
+use App\Exceptions\InvariantError;
 use App\Exceptions\NotFoundError;
 use App\Exceptions\ServerError;
 use App\Http\Requests\PostCommentRequest;
 use App\Http\Requests\StorePostCommentFileRequest;
 use App\Models\CommentFile;
+use App\Models\CommentLike;
 use App\Models\Post;
 use App\Models\PostComment;
 use Illuminate\Http\JsonResponse;
@@ -81,6 +83,88 @@ class PostCommentController extends Controller
     }
 
     /**
+     * Like a comment
+     * 
+     * @param string $postId
+     * @param string $commentId
+     * @throws \App\Exceptions\NotFoundError
+     * @throws \App\Exceptions\InvariantError
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function like(string $postId, string $commentId): JsonResponse
+    {
+        $user = auth('api')->user();
+
+        $isPostExists = Post::find($postId);
+
+        if (!$isPostExists) {
+            throw new NotFoundError('Gagal menyukai komentar, Post tidak ditemukan.');
+        }
+
+        $isCommentExists = PostComment::find($commentId);
+
+        if (!$isCommentExists) {
+            throw new NotFoundError('Gagal menyukai komentar, Komentar tidak ditemukan.');
+        }
+
+        $isCommentAlreadyLiked = CommentLike::where(['comment_id' => $commentId, 'user_id' => $user->id])->first();
+
+        if ($isCommentAlreadyLiked) {
+            throw new InvariantError('Gagal menyukai komentar, Komentar sudah Anda sukai.');
+        }
+
+        CommentLike::create([
+            'id' => Str::uuid(),
+            'comment_id' => $commentId,
+            'user_id' => $user->id
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Berhasil menambahkan komentar ke Anda sukai.',
+        ]);
+    }
+
+    /**
+     * Dislike a comment
+     * 
+     * @param string $postId
+     * @param string $commentId
+     * @throws \App\Exceptions\NotFoundError
+     * @throws \App\Exceptions\InvariantError
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function dislike(string $postId, string $commentId): JsonResponse
+    {
+        $user = auth('api')->user();
+
+        $isPostExists = Post::find($postId);
+
+        if (!$isPostExists) {
+            throw new NotFoundError('Gagal tidak menyukai komentar, Post tidak ditemukan.');
+        }
+
+        $isCommentExists = PostComment::find($commentId);
+
+        if (!$isCommentExists) {
+            throw new NotFoundError('Gagal tidak menyukai komentar, Komentar tidak ditemukan.');
+        }
+
+        $commentLike = CommentLike::where(['comment_id' => $commentId, 'user_id' => $user->id])->first();
+
+        if (!$commentLike) {
+            throw new InvariantError('Gagal tidak menyukai komentar, Komentar sudah Anda sukai.');
+        }
+        
+        $commentLike->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Berhasil tidak menyukai komentar.'
+        ]);
+    }
+
+    /**
      * Retrieve all post comments
      * 
      * @param string $postId
@@ -88,7 +172,10 @@ class PostCommentController extends Controller
      */
     public function all(string $postId): JsonResponse
     {
-        $comments = PostComment::with(['comment_files'])->where(['post_id' => $postId])->get();
+        $comments = PostComment::with(['comment_files'])
+            ->where(['post_id' => $postId])
+            ->withCount('replies', 'comment_likes')
+            ->get();
 
         return response()->json([
             'status' => 'success',
@@ -109,7 +196,9 @@ class PostCommentController extends Controller
      */
     public function show(string $postId, string $commentId): JsonResponse
     {
-        $comment = PostComment::where(['post_id' => $postId, 'id' =>  $commentId])->first();
+        $comment = PostComment::where(['post_id' => $postId, 'id' =>  $commentId])
+            ->withCount('replies', 'comment_likes')
+            ->first();
 
         if (!$comment) {
             throw new NotFoundError('Gagal mendapatkan komentar, Komentar tidak ditemukan.');

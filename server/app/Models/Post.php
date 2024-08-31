@@ -71,7 +71,18 @@ class Post extends Model
      */
     public function comments(): HasMany
     {
-        return $this->hasMany(PostComment::class, 'post_id', 'id');
+        return $this->hasMany(PostComment::class, 'post_id', 'id')
+            ->withCount(['replies', 'comment_likes']);
+    }
+
+    /**
+     * Like from post
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function post_likes(): HasMany
+    {
+        return $this->hasMany(PostLike::class, 'post_id', 'id');
     }
 
     /**

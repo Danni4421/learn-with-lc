@@ -49,8 +49,12 @@ Route::middleware(['api'])->group(function() {
         Route::middleware(['auth:api', 'role:public,student'])->group(function() {
             Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
             Route::post('/posts/{postId}/files', [PostController::class, 'store_post_file'])->name('posts.files.store');
+            Route::post('/posts/{postId}/like', [PostController::class, 'like'])->name('posts.like.store');
+            Route::post('/posts/{postId}/dislike', [PostController::class, 'dislike'])->name('posts.dislike.store');
             Route::post('/posts/{postId}/comments', [PostCommentController::class, 'store'])->name('posts.comments.store');
             Route::post('/posts/{postId}/comments/{commentId}/files', [PostCommentController::class, 'store_comment_file'])->name('posts.comments.files.store');
+            Route::post('/posts/{postId}/comments/{commentId}/like', [PostCommentController::class, 'like'])->name('posts.comments.like.store');
+            Route::post('/posts/{postId}/comments/{commentId}/dislike', [PostCommentController::class, 'dislike'])->name('posts.comments.dislike.store');
             Route::post('/posts/{postId}/comments/{commentId}/replies', [CommentReplyController::class, 'store'])->name('posts.comments.replies.store');
             Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
             Route::put('/posts/{postId}/comments/{commentId}', [PostCommentController::class, 'update'])->name('posts.comments.update');

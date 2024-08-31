@@ -76,6 +76,16 @@ class PostComment extends Model
     }
 
     /**
+     * Like from comment
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comment_likes(): HasMany
+    {
+        return $this->hasMany(CommentLike::class, 'comment_id', 'id');
+    }
+
+    /**
      * Comment files as an images
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

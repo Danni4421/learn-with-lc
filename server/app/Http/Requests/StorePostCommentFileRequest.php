@@ -72,12 +72,12 @@ class StorePostCommentFileRequest extends FormRequest
 
     public function storeIntoComment(string $commentId): CommentFile
     {
-        $comment_file_path = $this->storeIntoStorage('comment_files');
+        $post_file_path = $this->storeIntoStorage('comment_files');
 
         return CommentFile::create([
-            'id' => Str::uuid(), 
+            'id' => Str::uuid(),
             'comment_id' => $commentId,
-            'path' => $comment_file_path
+            'path' => $post_file_path
         ]);
     }
 

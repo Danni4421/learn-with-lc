@@ -60,18 +60,26 @@ class DocumentationController extends Controller
 
             // Posts
             "store_post" => "/app/api-responses/posts/store-post.json",
+            "store_thread_photo" => "/app/api-responses/posts/post-thread-file.json",
+            "like_post" => "/app/api-responses/posts/like-post.json",
+            "dislike_post" => "/app/api-responses/posts/dislike-post.json",
             "get_all_post" => "/app/api-responses/posts/get-all-post.json",
             "get_post_by_id" => "/app/api-responses/posts/get-post-by-id.json",
             "update_post" => "/app/api-responses/posts/update-post.json",
             "update_post_but_not_owner" => "/app/api-responses/posts/update-post-but-not-owner.json",
+            "delete_thread_photo" => "/app/api-responses/posts/delete-post-file.json",
             "delete_post" => "/app/api-responses/posts/delete-post.json",
             "delete_post_but_not_owner" => "/app/api-responses/posts/delete-post-but-not-owner.json",
 
-            // Posts
+            // Comments
             "store_comment" => "/app/api-responses/comments/store-comment.json",
+            "store_comment_photo" => "/app/api-responses/comments/store-comment-file.json",
+            "like_comment" => "/app/api-responses/comments/like-comment.json",
+            "dislike_comment" => "/app/api-responses/comments/dislike-comment.json",
             "get_all_comment_from_post" => "/app/api-responses/comments/get-all-comment.json",
             "update_comment" => "/app/api-responses/comments/update-comment.json",
             "update_comment_but_not_owner" => "/app/api-responses/comments/update-comment-but-not-owner.json",
+            "delete_comment_photo" => "/app/api-responses/comments/delete-comment-file.json",
             "delete_comment" => "/app/api-responses/comments/delete-comment.json",
             "delete_comment_but_not_owner" => "/app/api-responses/comments/delete-comment-but-not-owner.json",
 
