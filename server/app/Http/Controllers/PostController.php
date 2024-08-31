@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Exceptions\AuthorizationError;
 use App\Exceptions\NotFoundError;
 use App\Exceptions\ServerError;
-use App\Http\Requests\Post\PutPostRequest;
-use App\Http\Requests\Post\StorePostRequest;
 use App\Models\Post;
 use App\Models\PostFile;
+use App\Http\Requests\Post\StorePostRequest;
+use App\Http\Requests\Post\PutPostRequest;
+use App\Http\Requests\StorePostCommentFileRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,9 +18,9 @@ class PostController extends Controller
     /**
      * Store new post
      * 
-     * @param StorePostRequest $request
-     * @throws ServerError
-     * @return JsonResponse
+     * @param \App\Http\Requests\Post\StorePostRequest $request
+     * @throws \App\Exceptions\ServerError
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StorePostRequest $request): JsonResponse
     {
@@ -39,13 +40,40 @@ class PostController extends Controller
     }
 
     /**
-     * Get all post
+     * Store a new post file
      * 
-     * @return JsonResponse
+     * @param \App\Http\Requests\StorePostCommentFileRequest $request
+     * @param string $postId
+     * @throws \App\Exceptions\NotFoundError
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store_post_file(StorePostCommentFileRequest $request, string $postId): JsonResponse
+    {
+        $post = Post::find($postId);
+
+        if (!$post) {
+            throw new NotFoundError('Gagal menambahkan file post, Post tidak ditemukan.');
+        }
+
+        $postFile = $request->storeIntoPost($postId);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Berhasil menambahkan file post.',
+            'data' => [
+                'post_file' => $postFile
+            ]
+        ], 201);
+    }
+
+    /**
+     * Get all Post
+     * 
+     * @return \Illuminate\Http\JsonResponse
      */
     public function all(): JsonResponse
     {
-        $posts = Post::with(['comments.replies', 'post_owner', 'files'])->get();
+        $posts = Post::with(['comments.replies', 'post_owner', 'files'])->withCount(['comments'])->get();
 
         return response()->json([
             'status' => 'success',
@@ -60,8 +88,8 @@ class PostController extends Controller
      * Get post by specific id
      * 
      * @param string $id
-     * @throws NotFoundError
-     * @return JsonResponse
+     * @throws \App\Exceptions\NotFoundError
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(string $id): JsonResponse
     {   
@@ -83,10 +111,11 @@ class PostController extends Controller
     /**
      * Update post by specific id
      * 
-     * @param PutPostRequest $request
+     * @param \App\Http\Requests\Post\PutPostRequest $request
      * @param string $id
-     * @throws NotFoundError | AuthorizationError
-     * @return JsonResponse
+     * @throws \App\Exceptions\NotFoundError
+     * @throws \App\Exceptions\AuthorizationError
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(PutPostRequest $request, string $id): JsonResponse
     {
@@ -112,8 +141,9 @@ class PostController extends Controller
      * Delete post by specific id
      * 
      * @param string $id
-     * @throws NotFoundError | AuthorizationError
-     * @return JsonResponse
+     * @throws \App\Exceptions\NotFoundError
+     * @throws \App\Exceptions\AuthorizationError
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(string $id): JsonResponse
     {
@@ -137,7 +167,16 @@ class PostController extends Controller
         ]);
     }
 
-    public function destroy_post_files(string $postId, string $fileId)
+    /**
+     * Delete post by specific id
+     * 
+     * @param string $postId
+     * @param string $fileId
+     * @throws \App\Exceptions\NotFoundError
+     * @throws \App\Exceptions\AuthorizationError
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy_post_files(string $postId, string $fileId): JsonResponse
     {
         $post = Post::with(['files'])->find($postId);
 

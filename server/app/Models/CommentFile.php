@@ -49,4 +49,9 @@ class CommentFile extends Model
     protected $hidden = [
         'comment_id',
     ];
+
+    public function getPathAttribute($value)
+    {
+        return asset('storage/' . $value);
+    }
 }

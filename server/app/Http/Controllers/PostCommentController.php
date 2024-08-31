@@ -6,6 +6,7 @@ use App\Exceptions\AuthorizationError;
 use App\Exceptions\NotFoundError;
 use App\Exceptions\ServerError;
 use App\Http\Requests\PostCommentRequest;
+use App\Http\Requests\StorePostCommentFileRequest;
 use App\Models\CommentFile;
 use App\Models\Post;
 use App\Models\PostComment;
@@ -44,6 +45,39 @@ class PostCommentController extends Controller
                 'comment' => $comment,
             ],
         ], 201);
+    }
+
+    /**
+     * Post a new comment file
+     * 
+     * @param \App\Http\Requests\StorePostCommentFileRequest $request
+     * @param string $postId
+     * @param string $commentId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store_comment_file(StorePostCommentFileRequest $request, string $postId, string $commentId): JsonResponse
+    {
+        $post = Post::find($postId);
+
+        if (!$post) {
+            throw new NotFoundError('Gagal menambahkan comment file, Post tidak ditemukan.');
+        }
+
+        $comment = PostComment::find($commentId);
+
+        if (!$comment) {
+            throw new NotFoundError('Gagal menambahkan comment file, Comment tidak ditemukan.');
+        }
+
+        $commentFile = $request->storeIntoComment($commentId);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Berhasil menambahkan comment file.',
+            'data' => [
+                'comment_file' => $commentFile,
+            ],
+        ]);
     }
 
     /**

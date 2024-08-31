@@ -60,4 +60,9 @@ class PostFile extends Model
     {
         return $this->belongsTo(Post::class, 'id', 'post_id');
     }
+
+    public function getPathAttribute($value)
+    {
+        return asset('storage/' . $value);
+    }
 }
