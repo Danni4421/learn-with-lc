@@ -1,3 +1,8 @@
+"use client";
+
+/** Components */
+
+/** Types */
 import { Facility } from "@/types";
 import { Image } from "@chakra-ui/react";
 import { FaUserFriends, FaVideo, FaWifi } from "react-icons/fa";
@@ -10,7 +15,7 @@ type FacilitiesProps = {
   className?: string;
 };
 
-export default function Facilities({
+export function Facilities({
   facilities,
   className = "",
   ...props

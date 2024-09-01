@@ -1,11 +1,9 @@
 "use client";
 
-/** Components */
-
-/** Types */
-import { Program } from "@/types";
 import { useState } from "react";
-import ProgramTable from "../tables/programs";
+
+/** Components */
+import ProgramTable from "@/components/ui/tables/programs";
 import {
   Box,
   Button,
@@ -18,21 +16,24 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import PrimaryButton from "../buttons/primary";
+import PrimaryButton from "@/components/ui/buttons/primary";
 import { FaPlus } from "react-icons/fa";
 import { FaX } from "react-icons/fa6";
 
+/** Types */
+import { type Program } from "@/types";
+
+/** Libraries */
+import { deleteProgramById } from "@/lib/programs";
+
 /** Utils */
 import Swal from "sweetalert2";
-import { deleteProgramById } from "@/lib/programs";
 
 interface EditableProgramProps {
   initialData: Program[];
 }
 
-export default function EditablePrograms({
-  initialData,
-}: EditableProgramProps) {
+export function EditablePrograms({ initialData }: EditableProgramProps) {
   const [programs, setPrograms] = useState<Program[]>(initialData);
 
   const DeleteButton = ({ id }: { id: string }) => {

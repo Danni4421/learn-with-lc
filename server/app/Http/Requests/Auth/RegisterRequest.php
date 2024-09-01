@@ -27,7 +27,9 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:100'],
+            'username' => ['required', 'string', 'max:50'],
+            'firstname' => ['required', 'string', 'max:100'],
+            'lastname' => ['nullable', 'string', 'max:100'],
             'email' =>  ['required', 'email:dns', 'unique:'.User::class],
             'password' => ['required', 'confirmed', 'min:8'],
             'level_id' => ['nullable', 'exists:'.Level::class.',id']
@@ -42,9 +44,14 @@ class RegisterRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Nama perlu untuk diisi.',
-            'name.string' => 'Nama harus berupa sebuah karakter.',
-            'name.max' => 'Nama memiliki maksimal 100 karakter.',
+            'username.required' => 'Username perlu untuk diisi.',
+            'username.string' => 'Username harus berupa sebuah karakter.',
+            'username.max' => 'Username memiliki maksimal 50 karakter.',
+            'firstname.required' => 'Nama depan perlu untuk diisi.',
+            'firstname.string' => 'Nama depan harus berupa sebuah karakter.',
+            'firstname.max' => 'Nama depan memiliki maksimal 100 karakter.',
+            'lastname.string' => 'Nama belakang harus berupa sebuah karakter.',
+            'lastname.max' => 'Nama belakang memiliki maksimal 100 karakter.',
             'email.required' => 'Email perlu untuk diisi.',
             'email.email' => 'Format email tidak valid.',
             'email.unique' => 'Email telah digunakan.',
@@ -85,11 +92,13 @@ class RegisterRequest extends FormRequest
                 ->id;
 
         $user = User::create([
-            'id' => Str::uuid(),
             'level_id' => $level,
-            'name' => $this->name,
+            'firstname' => $this->firstname,
+            'lastname' => $this->lastname,
+            'username' => $this->username,
             'email' => $this->email,
-            'password' => bcrypt($this->password)
+            'password' => bcrypt($this->password),
+            'remember_token' => Str::random(10)
         ]);
 
         return $user;

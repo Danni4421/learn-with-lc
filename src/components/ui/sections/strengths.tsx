@@ -1,13 +1,17 @@
-import { Strength } from "@/types";
-import { Image } from "@chakra-ui/react";
 import clsx from "clsx";
+
+/** Components */
+import { Image } from "@chakra-ui/react";
+
+/** Types */
+import { type Strength } from "@/types";
 
 type StrengthProps = {
   strengths: Strength[];
   className?: string;
 };
 
-export default function Strengths({
+export function Strengths({
   strengths,
   className = "",
   ...props
@@ -19,7 +23,7 @@ export default function Strengths({
           <div
             className={clsx(
               "flex flex-col-reverse justify-center items-center gap-20",
-              index % 2 != 0 ? "md:flex-row-reverse text-end" : "md:flex-row",
+              index % 2 != 0 ? "md:flex-row-reverse text-end" : "md:flex-row"
             )}
             key={index}
           >
@@ -32,7 +36,7 @@ export default function Strengths({
             <div
               className={clsx(
                 "flex flex-col w-full md:w-1/2 items-center",
-                index % 2 != 0 ?? "flex-row-reverse text-end",
+                index % 2 != 0 ?? "flex-row-reverse text-end"
               )}
             >
               <h2 className="text-2xl font-bold mb-5">{strength.title}</h2>

@@ -1,19 +1,22 @@
 "use client";
 
+/** Components */
 import { Card, Image } from "@chakra-ui/react";
-import { Testimony } from "@/types";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { FaArrowRight, FaQuoteLeft } from "react-icons/fa";
+
+/** Types */
+import { type Testimony } from "@/types";
 
 import "swiper/css";
 import "swiper/css/scrollbar";
-import { FaArrowRight, FaQuoteLeft } from "react-icons/fa";
 
 type TestimonialsProps = {
   testimonials: Testimony[];
   className?: string;
 };
 
-export default function Testimonials({
+export function Testimonials({
   testimonials,
   className = "",
   ...props

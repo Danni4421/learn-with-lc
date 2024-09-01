@@ -1,25 +1,27 @@
+"use client";
+
 import clsx from "clsx";
-import { type About } from "@/types";
+
+/** Components */
 import Heading from "@/components/heading";
 import { Image } from "@chakra-ui/react";
+
+/** Types */
+import { type About } from "@/types";
 
 type AboutProps = {
   abouts: About[];
   className?: string;
 };
 
-export default function About({
-  abouts,
-  className = "",
-  ...props
-}: AboutProps) {
+export function About({ abouts, className = "", ...props }: AboutProps) {
   return (
     <section {...props} id="about_us" className={className}>
       {abouts?.map((about, index) => (
         <div
           className={clsx(
             "flex flex-col justify-center items-center mb-10 lg:gap-20",
-            index % 2 != 0 ? "md:flex-row-reverse" : "md:flex-row",
+            index % 2 != 0 ? "md:flex-row-reverse" : "md:flex-row"
           )}
           key={index}
         >
@@ -45,7 +47,7 @@ export default function About({
                 "flex flex-col md:gap-5",
                 index % 2 != 0
                   ? "text-start md:text-end"
-                  : "text-end md:text-start",
+                  : "text-end md:text-start"
               )}
             >
               {about.texts?.map((text, nestedIndex) => (

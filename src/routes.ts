@@ -1,5 +1,6 @@
 const uuidRegexPattern =
   "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$";
+const randomCharacters = ".*$";
 
 /**
  * Array contain bounce of url that is accessible to public or guest
@@ -10,8 +11,7 @@ export const publicRoutes = [
   "^/$",
   "^/testimonials$",
   `^/testimonials/${uuidRegexPattern}`,
-  '/pages/landing-page',
-  '/forum'
+  `^/user/${randomCharacters}`,
 ];
 
 /**

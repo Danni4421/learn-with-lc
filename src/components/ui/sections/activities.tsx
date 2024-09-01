@@ -1,25 +1,30 @@
 "use client";
 
+import { useState } from "react";
+import clsx from "clsx";
+
+/** Components */
 import { Image } from "@chakra-ui/react";
-import { Activity } from "@/types";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+
+/** Types */
+import { type Activity } from "@/types";
 import { type Swiper as SwiperType } from "swiper/types";
+
+/** Utils */
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
-import { useState } from "react";
-import clsx from "clsx";
-
 type ActivitiesProps = {
   activities: Activity[];
   className?: string;
 };
 
-export default function Activities({
+export function Activities({
   activities,
   className = "",
   ...props

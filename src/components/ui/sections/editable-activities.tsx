@@ -31,7 +31,7 @@ import { FaPlus, FaRegFloppyDisk } from "react-icons/fa6";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 /** Types */
-import { Activity } from "@/types";
+import { type Activity } from "@/types";
 import { type Swiper as SwiperType } from "swiper/types";
 
 import "swiper/css";
@@ -51,7 +51,7 @@ type ActivitiesProps = {
   className?: string;
 };
 
-export default function EditableActivities({
+export function EditableActivities({
   __activities,
   className = "",
   ...props

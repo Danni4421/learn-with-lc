@@ -37,4 +37,14 @@ class Level extends Model
         'id',
         'name',
     ];
+
+    /**
+     * The attributes that are hidden when queried
+     * 
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 }

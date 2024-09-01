@@ -8,7 +8,6 @@ use App\Http\Requests\FAQRequest;
 use App\Models\FAQ;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 
 class FAQController extends Controller
 {

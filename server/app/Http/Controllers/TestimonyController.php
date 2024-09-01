@@ -8,7 +8,6 @@ use App\Http\Requests\TestimonyRequest;
 use App\Models\Testimony;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 
 class TestimonyController extends Controller
 {
