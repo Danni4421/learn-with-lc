@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Post;
+namespace App\Http\Requests\Thread;
 
 use App\Exceptions\InvariantError;
 use App\Models\Post;
+use App\Models\PostCategory;
 use App\Models\PostFile;
-use App\Models\User;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -13,7 +13,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class StorePostRequest extends FormRequest
+class PostThreadRequest extends FormRequest
 {
     protected array $uploaded_files_path = [];
 
@@ -37,7 +37,9 @@ class StorePostRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:150'],
             'content' => ['required', 'string'],
-            'files' => ['array'],
+            'slugs' => ['nullable', 'array'],
+            'slugs.*' => ['string', 'exists:'.PostCategory::class.',id'],
+            'files' => ['nullable', 'array'],
             'files.*' => ['image', 'mimetypes:image/*', 'max:1024']
         ];
     }
@@ -53,6 +55,9 @@ class StorePostRequest extends FormRequest
             'title.required' => 'Judul perlu untuk diisi.',
             'title.string' => 'Judul harus berupa sebuah karakter.',
             'title.max' => 'Judul memiliki maksimal 150 karakter.',
+            'slugs.array' => 'Slug harus berupa array.',
+            'slugs.*.string' => 'Slug harus berupa karakter.',
+            'slugs.*.exists' => 'Slug tidak ditemukan.',
             'content.required' => 'Isi post perlu untuk diisi.',
             'content.string' => 'Isi post harus berupa karakter.',
             'files' => 'File post harus berupa array.',
@@ -78,9 +83,9 @@ class StorePostRequest extends FormRequest
      * Summary of store_post
      * @return Post
      */
-    public function store_post()
+    public function storePost()
     {
-        if (count($this->files)) {
+        if ($this->has('files')) {
             foreach ($this->files as $file) {
                 $file = UploadedFile::createFromBase($file[0]);
 
@@ -100,6 +105,10 @@ class StorePostRequest extends FormRequest
             'content' => $this->input('content'),
             'status' => $this->default_post_status,
         ]);
+
+        if ($this->has('slugs')) {
+            $post->slugs()->sync($this->input('slugs'));
+        }
 
         if (count($this->uploaded_files_path)) {
             foreach ($this->uploaded_files_path as $file_path) {

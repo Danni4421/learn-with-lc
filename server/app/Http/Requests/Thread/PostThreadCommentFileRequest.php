@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Thread;
 
 use App\Exceptions\InvariantError;
 use App\Models\CommentFile;
@@ -11,7 +11,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class StorePostCommentFileRequest extends FormRequest
+class PostThreadCommentFileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

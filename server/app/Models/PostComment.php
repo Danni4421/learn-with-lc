@@ -104,4 +104,18 @@ class PostComment extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+    
+
+    public function delete(): void
+    {
+        $commentFiles = $this->comment_files()->get();
+
+        if (count($commentFiles)) {
+            foreach ($commentFiles as $file) {
+                $file->delete();
+            }
+        }
+
+        parent::delete();
+    }
 }

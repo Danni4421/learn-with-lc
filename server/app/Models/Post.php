@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -65,6 +66,16 @@ class Post extends Model
     }
 
     /**
+     * Get post categories
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function slugs(): BelongsToMany
+    {
+        return $this->belongsToMany(PostCategory::class, 'category_posts');
+    }
+
+    /**
      * Get comments from post
      * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -93,5 +104,23 @@ class Post extends Model
     public function files(): HasMany
     {
         return $this->hasMany(PostFile::class, 'post_id', 'id');
+    }
+
+    /**
+     * Add action after delete post
+     * 
+     * @return void
+     */
+    public function delete(): void
+    {
+        $postFiles = $this->files()->get();
+
+        if (count($postFiles)) {
+            foreach ($postFiles as $file) {
+                $file->delete();
+            }
+        }
+
+        parent::delete();
     }
 }

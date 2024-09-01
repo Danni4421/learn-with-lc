@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class CommentFile extends Model
 {
@@ -50,6 +51,29 @@ class CommentFile extends Model
         'comment_id',
     ];
 
+    /**
+     * Delete a comment file
+     * 
+     * @return bool
+     */
+    public function delete(): bool
+    {
+        $deleted = parent::delete();
+
+        if ($deleted) {
+            $commentFileName = last(explode('/', $this->path));
+            Storage::drive('public')->delete('comment_files/' . $commentFileName);
+        }
+
+        return $deleted;
+    }
+
+    /**
+     * Get path attribute linked to asset
+     * 
+     * @param mixed $value
+     * @return string
+     */
     public function getPathAttribute($value)
     {
         return asset('storage/' . $value);

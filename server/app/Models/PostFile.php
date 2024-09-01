@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class PostFile extends Model
 {
@@ -59,6 +60,23 @@ class PostFile extends Model
     public function post(): BelongsTo
     {
         return $this->belongsTo(Post::class, 'id', 'post_id');
+    }
+
+    /**
+     * Add another action for delete function
+     * 
+     * @return bool
+     */
+    public function delete(): bool
+    {
+        $deleted = parent::delete();
+
+        if ($deleted) {
+            $postFileName = last(explode('/', $this->path));
+            Storage::drive('public')->delete('post_files/' . $postFileName);
+        }
+
+        return $deleted;
     }
 
     public function getPathAttribute($value)

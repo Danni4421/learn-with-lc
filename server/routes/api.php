@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentReplyController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\LBBController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\PostCategoryController;
 use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProgramController;
@@ -79,6 +80,13 @@ Route::middleware(['api'])->group(function() {
      * Administrator Routes
      */
         Route::middleware(['auth:api', 'role:administrator'])->group(function() {
+            Route::prefix('posts/categories')->group(function () {
+                Route::post('/', [PostCategoryController::class, 'store'])->name('posts.categories.store');
+                Route::get('/', [PostCategoryController::class, 'all'])->name('posts.categories.all');
+                Route::put('/{postCategoryId}', [PostCategoryController::class, 'update'])->name('posts.categories.update');
+                Route::delete('/{postCategoryId}', [PostCategoryController::class, 'destroy'])->name('posts.categories.delete');
+            });
+
             Route::prefix('levels')->group(function() {
                 Route::post('/', [LevelController::class, 'store'])->name('level.store');
                 Route::delete('/{id}', [LevelController::class, 'destroy'])->name('level.delete');

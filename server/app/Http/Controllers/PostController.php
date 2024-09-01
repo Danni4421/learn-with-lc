@@ -8,9 +8,9 @@ use App\Exceptions\NotFoundError;
 use App\Exceptions\ServerError;
 use App\Models\Post;
 use App\Models\PostFile;
-use App\Http\Requests\Post\StorePostRequest;
-use App\Http\Requests\Post\PutPostRequest;
-use App\Http\Requests\StorePostCommentFileRequest;
+use App\Http\Requests\Thread\PostThreadRequest;
+use App\Http\Requests\Thread\PutThreadRequest;
+use App\Http\Requests\Thread\PostThreadCommentFileRequest;
 use App\Models\PostLike;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
@@ -21,13 +21,13 @@ class PostController extends Controller
     /**
      * Store new post
      * 
-     * @param \App\Http\Requests\Post\StorePostRequest $request
+     * @param \App\Http\Requests\Thread\PostThreadRequest $request
      * @throws \App\Exceptions\ServerError
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StorePostRequest $request): JsonResponse
+    public function store(PostThreadRequest $request): JsonResponse
     {
-        $post = $request->store_post();
+        $post = $request->storePost();
 
         if (!$post) {
             throw new ServerError('Terjadi kesalahan pada server.');
@@ -45,12 +45,12 @@ class PostController extends Controller
     /**
      * Store a new post file
      * 
-     * @param \App\Http\Requests\StorePostCommentFileRequest $request
+     * @param \App\Http\Requests\Thread\PostThreadCommentFileRequest $request
      * @param string $postId
      * @throws \App\Exceptions\NotFoundError
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store_post_file(StorePostCommentFileRequest $request, string $postId): JsonResponse
+    public function store_post_file(PostThreadCommentFileRequest $request, string $postId): JsonResponse
     {
         $post = Post::find($postId);
 
@@ -130,7 +130,7 @@ class PostController extends Controller
      */
     public function all(): JsonResponse
     {
-        $posts = Post::with(['comments.replies', 'post_owner', 'files'])
+        $posts = Post::with(['comments.replies', 'post_owner', 'slugs', 'files'])
             ->withCount('comments', 'post_likes')->get();
 
         return response()->json([
@@ -151,7 +151,7 @@ class PostController extends Controller
      */
     public function show(string $id): JsonResponse
     {   
-        $post = Post::with(['comments.replies', 'post_owner', 'files'])
+        $post = Post::with(['comments.replies', 'post_owner', 'slugs', 'files'])
             ->withCount('comments', 'post_likes')->find($id);
 
         if (!$post) {
@@ -170,26 +170,16 @@ class PostController extends Controller
     /**
      * Update post by specific id
      * 
-     * @param \App\Http\Requests\Post\PutPostRequest $request
+     * @param \App\Http\Requests\Thread\PutThreadRequest $request
      * @param string $id
      * @throws \App\Exceptions\NotFoundError
      * @throws \App\Exceptions\AuthorizationError
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(PutPostRequest $request, string $id): JsonResponse
+    public function update(PutThreadRequest $request, string $id): JsonResponse
     {
-        $post = Post::find($id);
+        $request->updatePost($id);
 
-        if (!$post) {
-            throw new NotFoundError('Gagal mengubah post, Post tidak ditemukan.');
-        }
-
-        if ($post->user_id != auth('api')->user()->id) {
-            throw new AuthorizationError('Anda tidak diperbolehkan mengubah post.');
-        }
-
-        $post->update($request->getData());
- 
         return response()->json([
             'status' => 'success',
             'message' => 'Berhasil mengubah post.'
@@ -254,10 +244,6 @@ class PostController extends Controller
         if (!$post_file) {
             throw new NotFoundError('Gagal menghapus file post, Post tidak ditemukan.');
         }
-
-        $post_file_name = last(explode('/', $post_file->path));
-
-        Storage::drive('public')->delete('post_files/' . $post_file_name);
 
         $post_file->delete();
 

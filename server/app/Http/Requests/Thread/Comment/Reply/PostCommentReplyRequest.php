@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Post;
+namespace App\Http\Requests\Thread\Comment\Reply;
 
 use App\Exceptions\InvariantError;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class PutPostRequest extends FormRequest
+class PostCommentReplyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,27 +25,20 @@ class PutPostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:150'],
-            'content' => ['required', 'string'],
-            'status' => ['required', 'in:open,closed']
+            'reply' => ['required', 'string']
         ];
     }
 
     /**
-     * Get the validation message that apply for each rule.
+     * Get the validation rules that apply to the request.
      *
      * @return array<string, string>
      */
     public function messages(): array
     {
         return [
-            'title.required' => 'Judul post perlu untuk diisi.',
-            'title.string' => 'Judul post harus berupa karakter.',
-            'title.max' => 'Judul memiliki maksimal 150 karakter.',
-            'content.required' => 'Isi post perlu untuk diisi.',
-            'content.string' => 'Isi post harus berupa karakter.',
-            'status.required' => 'Status perlu untuk diisi.',
-            'status.in' => 'Status hanya boleh antara open atau closed.',
+            'reply.required' => 'Balasan perlu untuk diisi.',
+            'reply.string' => 'Balasan harus berupa sebuah karakter.'
         ];
     }
 
@@ -62,16 +55,14 @@ class PutPostRequest extends FormRequest
     }
 
     /**
-     * Function that will return ready to produce data
+     * Return ready to produce data
      * 
-     * @return array<string, string>
+     * @return array<string, mixed>
      */
-    public function getData()
+    public function getData(): array
     {
         return [
-            'title' => $this->input('title'),
-            'content' => $this->input('content'),
-            'status' => $this->input('status')
+            'reply' => $this->input('reply'),
         ];
     }
 }

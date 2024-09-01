@@ -6,8 +6,8 @@ use App\Exceptions\AuthorizationError;
 use App\Exceptions\InvariantError;
 use App\Exceptions\NotFoundError;
 use App\Exceptions\ServerError;
-use App\Http\Requests\PostCommentRequest;
-use App\Http\Requests\StorePostCommentFileRequest;
+use App\Http\Requests\Thread\Comment\PostCommentRequest;
+use App\Http\Requests\Thread\PostThreadCommentFileRequest;
 use App\Models\CommentFile;
 use App\Models\CommentLike;
 use App\Models\Post;
@@ -21,10 +21,11 @@ class PostCommentController extends Controller
     /**
      * Store a new comment
      * 
-     * @param PostCommentRequest $request
+     * @param \App\Http\Requests\Thread\Comment\PostCommentRequest $request
      * @param string $postId
-     * @throws ServerError
-     * @return JsonResponse
+     * @throws \App\Exceptions\NotFoundError
+     * @throws \App\Exceptions\ServerError
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(PostCommentRequest $request, string $postId): JsonResponse
     {
@@ -52,12 +53,12 @@ class PostCommentController extends Controller
     /**
      * Post a new comment file
      * 
-     * @param \App\Http\Requests\StorePostCommentFileRequest $request
+     * @param \App\Http\Requests\Thread\PostThreadCommentFileRequest $request
      * @param string $postId
      * @param string $commentId
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store_comment_file(StorePostCommentFileRequest $request, string $postId, string $commentId): JsonResponse
+    public function store_comment_file(PostThreadCommentFileRequest $request, string $postId, string $commentId): JsonResponse
     {
         $post = Post::find($postId);
 
@@ -165,10 +166,10 @@ class PostCommentController extends Controller
     }
 
     /**
-     * Retrieve all post comments
+     * Retrieve all comment post
      * 
      * @param string $postId
-     * @return JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function all(string $postId): JsonResponse
     {
@@ -191,8 +192,8 @@ class PostCommentController extends Controller
      * 
      * @param string $postId
      * @param string $commentId
-     * @throws NotFoundError
-     * @return JsonResponse
+     * @throws \App\Exceptions\NotFoundError
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(string $postId, string $commentId): JsonResponse
     {
@@ -216,11 +217,12 @@ class PostCommentController extends Controller
     /**
      * Update comment based on post
      * 
-     * @param PostCommentRequest $request
+     * @param \App\Http\Requests\Thread\Comment\PostCommentRequest $request
      * @param string $postId
      * @param string $commentId
-     * @throws NotFoundError
-     * @return JsonResponse
+     * @throws \App\Exceptions\NotFoundError
+     * @throws \App\Exceptions\AuthorizationError
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(PostCommentRequest $request, string $postId, string $commentId): JsonResponse
     {
@@ -247,8 +249,9 @@ class PostCommentController extends Controller
      * 
      * @param string $postId
      * @param string $commentId
-     * @throws NotFoundError
-     * @return JsonResponse
+     * @throws \App\Exceptions\NotFoundError
+     * @throws \App\Exceptions\AuthorizationError
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(string $postId, string $commentId): JsonResponse
     {
@@ -270,6 +273,16 @@ class PostCommentController extends Controller
         ]);
     }
 
+    /**
+     * Delete comment file
+     * 
+     * @param string $postId
+     * @param string $commentId
+     * @param string $fileId
+     * @throws \App\Exceptions\NotFoundError
+     * @throws \App\Exceptions\AuthorizationError
+     * @return JsonResponse|mixed
+     */
     public function destroy_comment_files(string $postId, string $commentId, string $fileId)
     {
         $comment = PostComment::where(['post_id' => $postId, 'id' => $commentId])->first();
@@ -287,10 +300,6 @@ class PostCommentController extends Controller
         if (!$comment_file) {
             throw new NotFoundError('Gagal menghapus file comment, File tidak ditemukan');
         }
-
-        $comment_file_name = last(explode('/', $comment_file->path));
-
-        Storage::delete('comment_files/' . $comment_file_name);
 
         $comment_file->delete();
 

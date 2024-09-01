@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Thread\Comment;
 
 use App\Exceptions\InvariantError;
 use App\Models\CommentFile;
