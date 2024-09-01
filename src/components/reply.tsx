@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardHeader, CardBody, CardFooter, Flex, Box, Avatar, Heading, Text, Button, Divider } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, CardFooter, Flex, Box, Avatar, Heading, Text, Button, Divider, Image } from '@chakra-ui/react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { BiChat } from 'react-icons/bi';
 

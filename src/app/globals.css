@@ -125,5 +125,15 @@
     box-shadow: 10px 10px 0px #fff; /* Bayangan solid berwarna hitam */
   }
   
+  /* Add this CSS to your global stylesheet or component-specific styles */
+.hide-scrollbar {
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
   
   
