@@ -28,7 +28,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.24",
     "html-react-parser": "^5.1.12",
-    "next": "14.2.5",
+    "next": "14.2.14",
     "next-auth": "^5.0.0-beta.20",
     "react": "^18",
     "react-data-table-component": "^7.6.2",
