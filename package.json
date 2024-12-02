@@ -23,7 +23,7 @@
     "@tiptap/extension-text-style": "^2.6.4",
     "@tiptap/pm": "^2.6.4",
     "@tiptap/react": "^2.6.4",
-    "@tiptap/starter-kit": "^2.6.4",
+    "@tiptap/starter-kit": "^2.10.3",
     "axios": "^1.7.3",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.24",
